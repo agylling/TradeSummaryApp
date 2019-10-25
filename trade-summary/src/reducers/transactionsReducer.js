@@ -6,11 +6,13 @@ const transactionsReducer = (state = defaultState, action) => {
   switch(action.type) {
     case 'INCLUDE':
       console.log("IN INCLUDE")
-      return state.map(transaction =>
+      return {...state, transactions:
+        state.transactions.map(transaction =>
         (transaction.id === action.id && transaction.name === action.name)
-        ? {...transaction, included: !action.include}
-        : transaction
-      );
+          ? {...transaction, included: !action.included}
+          : transaction
+        )
+    }
     case 'ADD_TRANSACTION':
       return {
         ...state,

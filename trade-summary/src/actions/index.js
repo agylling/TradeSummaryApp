@@ -1,9 +1,10 @@
-export const include = (id, date, include) => ({
+export const include = (id, date, include) => (
+  {
   type: "INCLUDE",
   id: id,
   date: date,
-  included: include
-});
+  included: include}
+);
 
 export const addTransaction = (date, account, transactionType, stockname, amount, price, total, brokerage, currency, id) => (
   {
