@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Transaction from './Transaction'
 import { connect } from 'react-redux'
-import { include } from "../actions"
 
 const TransactionList = ({ transactions, include }) => (
   <table className="centering">
@@ -25,7 +24,6 @@ const TransactionList = ({ transactions, include }) => (
       {transactions.map(item =>
         <Transaction
           {...item}
-          onClick={() => include(item.id, item.date, item.included)}
         />
       )}
     </tbody>
@@ -38,10 +36,10 @@ TransactionList.propTypes = {
     account: PropTypes.string.isRequired,
     transactiontype: PropTypes.string.isRequired,
     stockname: PropTypes.string.isRequired,
-    amount: PropTypes.number.isRequired,
-    price: PropTypes.number.isRequired,
-    total: PropTypes.number.isRequired,
-    brokerage: PropTypes.number.isRequired,
+    amount: PropTypes.string.isRequired,
+    price: PropTypes.string.isRequired,
+    total: PropTypes.string.isRequired,
+    brokerage: PropTypes.string.isRequired,
     currency: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
     included: PropTypes.bool.isRequired
@@ -58,7 +56,6 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  include: id => {dispatch(include(id, true))}
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(TransactionList)

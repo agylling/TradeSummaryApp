@@ -3,26 +3,30 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { include } from "../actions"
 
-const Transaction = (
-  object
-) => (
+const Transaction = ({
+  include, dispatch,
+  date, account, transactiontype,
+  stockname, amount, price,
+  total, brokerage, currency,
+  id, included
+ }) => (
   <tr>
     <td>
       <input type="checkbox" defaultChecked
-        onClick={() => include(object), console.log("clickclick")}
+        onClick={() => {console.log("clickclick"); include(id, date,included)}}
       />
     </td>
-    <td>  {object.date}  </td>
-    <td>  {object.account}   </td>
-    <td>  {object.transactiontype}   </td>
-    <td>  {object.stockname}   </td>
-    <td>  {object.amount}   </td>
-    <td>  {object.price}   </td>
-    <td>  {object.total}   </td>
-    <td>  {object.brokerage}   </td>
-    <td>  {object.currency}   </td>
-    <td>  {object.id}   </td>
-    <td>  {object.included}   </td>
+    <td>  {date}  </td>
+    <td>  {account}   </td>
+    <td>  {transactiontype}   </td>
+    <td>  {stockname}   </td>
+    <td>  {amount}   </td>
+    <td>  {price}   </td>
+    <td>  {total}   </td>
+    <td>  {brokerage}   </td>
+    <td>  {currency}   </td>
+    <td>  {id}   </td>
+    <td>  {included}   </td>
   </tr>
 )
 
@@ -37,11 +41,12 @@ Transaction.propTypes = {
   brokerage: PropTypes.string.isRequired,
   currency: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
-  included: PropTypes.bool.isRequired
+  included: PropTypes.bool.isRequired,
+  include: PropTypes.func.isRequired
 }
 
 const mapDispatchToProps = dispatch => ({
-  include: object => {dispatch(include(object.id, object.date, object.include))}
+  include: (id, date,included) => {dispatch(include(id, date, included))}
 })
 
 export default connect(null, mapDispatchToProps)(Transaction)
