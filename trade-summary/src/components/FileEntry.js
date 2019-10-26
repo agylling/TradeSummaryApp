@@ -8,7 +8,8 @@ const fileReader = new FileReader();
 const FileEntry = ({addTransaction, dispatch}) => {
   const handleFileRead = (e) => {
       e.preventDefault();
-      const content = fileReader.result;
+      var content = fileReader.result;
+      content = content.replace(/,/g, ".");
       const lines = content.split('\n');
       for(var i = 0; i < lines.length; i++){
         var entry = lines[i].split(';');
@@ -16,7 +17,7 @@ const FileEntry = ({addTransaction, dispatch}) => {
         if(i === 0 || i === lines.length-1){
           continue; // First row = headers, last empty
         }
-        addTransaction(entry[0], entry[1], entry[2], entry[3], entry[4], entry[5], entry[6], entry[7], entry[8], entry[9]);
+        addTransaction(entry[0], entry[1], entry[2], entry[3], entry[4], entry[5], entry[6], entry[7], entry[8], entry[9], (i-1));
       }
     }
 
@@ -46,7 +47,7 @@ FileEntry.propTypes = {
 // Container Component
 
 const mapDispatchToProps = (dispatch) => ({
-  addTransaction: (date, account, transactiontype, stockname, amount, price, total, brokerage, currency, id) => dispatch(addTransaction(date, account, transactiontype, stockname, amount, price, total, brokerage, currency, id))
+  addTransaction: (date, account, transactiontype, stockname, amount, price, total, brokerage, currency, id, index) => dispatch(addTransaction(date, account, transactiontype, stockname, amount, price, total, brokerage, currency, id, index))
 })
 
 export default connect(

@@ -8,7 +8,7 @@ const transactionsReducer = (state = defaultState, action) => {
       console.log("IN INCLUDE")
       return {...state, transactions:
         state.transactions.map(transaction =>
-        (transaction.id === action.id && transaction.name === action.name)
+        (transaction.index === action.index && transaction.name === action.name)
           ? {...transaction, included: !action.included}
           : transaction
         )
@@ -29,7 +29,8 @@ const transactionsReducer = (state = defaultState, action) => {
             brokerage: action.brokerage,
             currency: action.currency,
             id: action.id,
-            included: true
+            included: true,
+            index: action.index
           }
         ]
       };

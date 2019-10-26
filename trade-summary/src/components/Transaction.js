@@ -8,12 +8,12 @@ const Transaction = ({
   date, account, transactiontype,
   stockname, amount, price,
   total, brokerage, currency,
-  id, included
+  id, included, index
  }) => (
   <tr>
     <td>
       <input type="checkbox" defaultChecked
-        onClick={() => {console.log("clickclick"); include(id, date,included)}}
+        onClick={() => {console.log("clickclick, index:" + index); include(index, date,included)}}
       />
     </td>
     <td>  {date}  </td>
@@ -26,7 +26,7 @@ const Transaction = ({
     <td>  {brokerage}   </td>
     <td>  {currency}   </td>
     <td>  {id}   </td>
-    <td>  {included}   </td>
+    <td> {index} </td>
   </tr>
 )
 
@@ -42,11 +42,12 @@ Transaction.propTypes = {
   currency: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   included: PropTypes.bool.isRequired,
-  include: PropTypes.func.isRequired
+  include: PropTypes.func.isRequired,
+  index: PropTypes.number.isRequired
 }
 
 const mapDispatchToProps = dispatch => ({
-  include: (id, date,included) => {dispatch(include(id, date, included))}
+  include: (index, date,included) => {dispatch(include(index, date, included))}
 })
 
 export default connect(null, mapDispatchToProps)(Transaction)
