@@ -18,6 +18,7 @@ const TransactionList = ({ transactions, include }) => (
         <th> brokerage </th>
         <th> currency </th>
         <th> id </th>
+        <th> index </th>
       </tr>
     </thead>
     <tbody>
@@ -42,7 +43,8 @@ TransactionList.propTypes = {
     brokerage: PropTypes.string.isRequired,
     currency: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
-    included: PropTypes.bool.isRequired
+    included: PropTypes.bool.isRequired,
+    index: PropTypes.string.isRequired
   }).isRequired).isRequired,
   include: PropTypes.func.isRequired
 }

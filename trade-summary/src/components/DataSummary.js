@@ -1,46 +1,83 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-
-class stock {
-  constructor(name){
-    this.name = name;
-    this.amountOwned = 0;
-    this.paid = 0;
-    this.sharesBought = 0;
-    this.sold = 0;
-    this.sharesSold = 0;
-    this.avgBought = 0;
-    this.divident = 0;
-    this.profit = 0;
-    this.brokerage = 0;
-  }
-}
+import Stock from './Stock'
+import {ShareSummary} from './Stock'
 
 const DataSummary = ({transactions, dispatch}) => {
-
   // Tracks the summarized info for each stock
-  const stockMap = new Map();
+  var stockMap = new Map();
 
-  const handleTransaction = (stock) => {
-
+  const handleTransaction = (stock, transaction) => {
+    var constObject = Object.assign({}, transaction);
+    switch(constObject.transactiontype){
+      case 'Köp':
+        stock.addBuy(constObject.amount, constObject.price, constObject.brokerage)
+        break;
+      case 'Sälj':
+        stock.sell(constObject.amount, constObject.price, constObject.brokerage);
+        break;
+      case 'Utdelning':
+        stock.addDividents(constObject.amount, constObject.price);
+        break;
+      default: break;
+    }
+    stock.getProfits();
+    stock.roundDecimals();
   };
 
   const summarize = (transactions) => {
       // Iterate through all transactions = true
       transactions.map(entry => {
         // If the stock doesn't already exist in the database, create new instance
+
         if(!stockMap.has(entry.stockname)) {
-          stockMap.set(entry.stockname, new stock(entry.stockname));
+          stockMap.set(entry.stockname, new Stock(entry.stockname));
         }
-        stock = stockMap.get(entry.stockname)
-        handleTransaction(stock);
+        var stock = stockMap.get(entry.stockname)
+        if(entry.included){
+          handleTransaction(stock, entry);
+        }
+        console.log("Profits" + stock.profit);
       });
   };
 
+  const renderSummary = () => {
+    var entries = [];
+    for(var entry of stockMap.values()){
+      entries.push(entry);
+      console.log("Entry " + entry)
+    }
+    return(
+      entries.map(entry => {
+          return <ShareSummary {...entry}/>
+      })
+    )
+  };
+
   return(
-    <div><p>Summarized Info here 2</p></div>
-  )
+    summarize(transactions),
+    console.log(stockMap.get("Starbreeze B")),
+    <table className="centering">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Bought</th>
+          <th>@avg</th>
+          <th>Total</th>
+          <th>Sold</th>
+          <th>@avg</th>
+          <th>total</th>
+          <th>Dividents</th>
+          <th>Brokerage</th>
+          <th>Profit</th>
+        </tr>
+      </thead>
+      <tbody>
+     {renderSummary()}
+      </tbody>
+    </table>
+  );
 }
 
 DataSummary.propTypes = {
@@ -55,7 +92,8 @@ DataSummary.propTypes = {
     brokerage: PropTypes.string.isRequired,
     currency: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
-    included: PropTypes.bool.isRequired
+    included: PropTypes.bool.isRequired,
+    index: PropTypes.number.isRequired
   }).isRequired).isRequired,
 }
 
