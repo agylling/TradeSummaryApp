@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/TradeSummaryApp/static/css/main.de384b6c.chunk.css",
-    "main.js": "/TradeSummaryApp/static/js/main.f17aba38.chunk.js",
-    "main.js.map": "/TradeSummaryApp/static/js/main.f17aba38.chunk.js.map",
+    "main.js": "/TradeSummaryApp/static/js/main.f6774044.chunk.js",
+    "main.js.map": "/TradeSummaryApp/static/js/main.f6774044.chunk.js.map",
     "runtime-main.js": "/TradeSummaryApp/static/js/runtime-main.0211e248.js",
     "runtime-main.js.map": "/TradeSummaryApp/static/js/runtime-main.0211e248.js.map",
     "static/js/2.22309701.chunk.js": "/TradeSummaryApp/static/js/2.22309701.chunk.js",
     "static/js/2.22309701.chunk.js.map": "/TradeSummaryApp/static/js/2.22309701.chunk.js.map",
     "index.html": "/TradeSummaryApp/index.html",
-    "precache-manifest.0d87fa708e22e5bbbd5011d6b24ddc9c.js": "/TradeSummaryApp/precache-manifest.0d87fa708e22e5bbbd5011d6b24ddc9c.js",
+    "precache-manifest.613c08963dd4f5a412f55c06c5a8f9b8.js": "/TradeSummaryApp/precache-manifest.613c08963dd4f5a412f55c06c5a8f9b8.js",
     "service-worker.js": "/TradeSummaryApp/service-worker.js",
     "static/css/main.de384b6c.chunk.css.map": "/TradeSummaryApp/static/css/main.de384b6c.chunk.css.map"
   },
@@ -16,6 +16,6 @@
     "static/js/runtime-main.0211e248.js",
     "static/js/2.22309701.chunk.js",
     "static/css/main.de384b6c.chunk.css",
-    "static/js/main.f17aba38.chunk.js"
+    "static/js/main.f6774044.chunk.js"
   ]
 }
