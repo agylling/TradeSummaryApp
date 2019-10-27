@@ -1,5 +1,7 @@
 const defaultState = {
-  transactions: []
+  transactions: [],
+  summaries: [],
+  profit: 0
 }
 
 const transactionsReducer = (state = defaultState, action) => {
@@ -33,6 +35,17 @@ const transactionsReducer = (state = defaultState, action) => {
             index: action.index
           }
         ]
+      };
+    case 'ADD_SUMMARY':
+    console.log("IN ADD_SUMMARY");
+      return{
+        ...state,
+        summaries: action.payload
+      };
+    case 'SET_PROFIT':
+      return {
+        ...state,
+        profit: action.payload
       };
     default:
       return state;

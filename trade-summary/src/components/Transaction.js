@@ -13,7 +13,7 @@ const Transaction = ({
   <tr>
     <td>
       <input type="checkbox" defaultChecked
-        onClick={() => {console.log("clickclick, index:" + index); include(index, date,included)}}
+        onClick={() => { include(index, date,included)}}
       />
     </td>
     <td>  {date}  </td>
@@ -26,7 +26,6 @@ const Transaction = ({
     <td>  {brokerage}   </td>
     <td>  {currency}   </td>
     <td>  {id}   </td>
-    <td> {index} </td>
   </tr>
 )
 

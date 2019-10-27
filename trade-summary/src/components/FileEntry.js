@@ -13,7 +13,6 @@ const FileEntry = ({addTransaction, dispatch}) => {
       const lines = content.split('\n');
       for(var i = 0; i < lines.length; i++){
         var entry = lines[i].split(';');
-        console.log(entry);
         if(i === 0 || i === lines.length-1){
           continue; // First row = headers, last empty
         }

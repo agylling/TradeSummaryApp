@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Transaction from './Transaction'
 import { connect } from 'react-redux'
 
-const TransactionList = ({ transactions, include }) => (
+const TransactionList = ({ transactions }) => (
   <table className="centering">
     <thead>
         <tr>
@@ -11,14 +11,13 @@ const TransactionList = ({ transactions, include }) => (
         <th> Date </th>
         <th> Account </th>
         <th> Transactiontype </th>
-        <th> stockname </th>
-        <th> amount </th>
-        <th> price </th>
-        <th> total </th>
-        <th> brokerage </th>
-        <th> currency </th>
-        <th> id </th>
-        <th> index </th>
+        <th> Name </th>
+        <th> Amount </th>
+        <th> Price </th>
+        <th> Total </th>
+        <th> Brokerage </th>
+        <th> Currency </th>
+        <th> Id </th>
       </tr>
     </thead>
     <tbody>
@@ -44,9 +43,8 @@ TransactionList.propTypes = {
     currency: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
     included: PropTypes.bool.isRequired,
-    index: PropTypes.string.isRequired
+    index: PropTypes.number.isRequired
   }).isRequired).isRequired,
-  include: PropTypes.func.isRequired
 }
 
 const getTransactions = (transactions) => {
