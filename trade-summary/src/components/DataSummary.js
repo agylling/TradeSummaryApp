@@ -3,10 +3,13 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Stock from './Stock'
 import {ShareSummary} from './Stock'
+import {addSummary, setProfit} from '../actions'
 
-const DataSummary = ({transactions, dispatch}) => {
+const DataSummary = ({transactions, addSummary, setProfit, dispatch}) => {
   // Tracks the summarized info for each stock
   var stockMap = new Map();
+  var entries = [];
+  var totalProfit = 0;
 
   const handleTransaction = (stock, transaction) => {
     var constObject = Object.assign({}, transaction);
@@ -30,7 +33,6 @@ const DataSummary = ({transactions, dispatch}) => {
       // Iterate through all transactions = true
       transactions.map(entry => {
         // If the stock doesn't already exist in the database, create new instance
-
         if(!stockMap.has(entry.stockname)) {
           stockMap.set(entry.stockname, new Stock(entry.stockname));
         }
@@ -38,18 +40,17 @@ const DataSummary = ({transactions, dispatch}) => {
         if(entry.included){
           handleTransaction(stock, entry);
         }
-        console.log("Profits" + stock.profit);
       });
   };
 
-  const renderSummary = () => {
-    var entries = [];
+  const renderSummary = (entries) => {
     for(var entry of stockMap.values()){
       entries.push(entry);
-      console.log("Entry " + entry)
     }
     return(
       entries.map(entry => {
+          {totalProfit += parseFloat(entry.returnProfit())}
+          {setProfit(totalProfit)}
           return <ShareSummary {...entry}/>
       })
     )
@@ -57,26 +58,28 @@ const DataSummary = ({transactions, dispatch}) => {
 
   return(
     summarize(transactions),
-    console.log(stockMap.get("Starbreeze B")),
-    <table className="centering">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Bought</th>
-          <th>@avg</th>
-          <th>Total</th>
-          <th>Sold</th>
-          <th>@avg</th>
-          <th>total</th>
-          <th>Dividents</th>
-          <th>Brokerage</th>
-          <th>Profit</th>
-        </tr>
-      </thead>
-      <tbody>
-     {renderSummary()}
-      </tbody>
-    </table>
+    addSummary(entries),
+    <div className="centering">
+      <table className="centering">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Bought</th>
+            <th>@avg</th>
+            <th>Total</th>
+            <th>Sold</th>
+            <th>@avg</th>
+            <th>Total</th>
+            <th>Dividents</th>
+            <th>Brokerage</th>
+            <th>Profit</th>
+          </tr>
+        </thead>
+        <tbody>
+         {renderSummary(entries)}
+        </tbody>
+      </table>
+    </div>
   );
 }
 
@@ -95,16 +98,18 @@ DataSummary.propTypes = {
     included: PropTypes.bool.isRequired,
     index: PropTypes.number.isRequired
   }).isRequired).isRequired,
+  addSummary: PropTypes.func.isRequired
 }
-
 
 // Container Component
 
 const mapStateToProps = state => ({
-  transactions: state.TransactionsStore.transactions
+  transactions: state.TransactionsStore.transactions,
 })
 
 const mapDispatchToProps = (dispatch) => ({
+  addSummary: stock => dispatch(addSummary(stock)),
+  setProfit:  profit => dispatch(setProfit(profit))
 })
 
 export default connect(

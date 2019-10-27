@@ -23,3 +23,15 @@ export const addTransaction = (date, account, transactionType, stockname, amount
   index: index
   }
 );
+
+export const addSummary = (entries) => (
+  {
+    type: "ADD_SUMMARY",
+    payload: entries
+  }
+)
+
+export const setProfit = (profit) => ({
+  type: "SET_PROFIT",
+  payload: profit
+})

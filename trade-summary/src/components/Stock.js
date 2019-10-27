@@ -44,6 +44,10 @@ export default class Stock {
     this.profit = parseFloat(this.sold) - (totalSold*this.avgBought) + parseFloat(this.divident) - parseFloat(this.brokerage);
   }
 
+  returnProfit = () => {
+    return this.profit;
+  }
+
   printInformation = () => {
     if(this.profit === 0){
       return null;
