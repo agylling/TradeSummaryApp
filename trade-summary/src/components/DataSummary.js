@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Stock from './Stock'
 import {ShareSummary} from './Stock'
-import {addSummary, setProfit} from '../actions'
+import {addSummary, setProfit, setSortFilter} from '../actions'
 
-const DataSummary = ({transactions, addSummary, setProfit, dispatch}) => {
+const DataSummary = ({transactions, addSummary, setProfit, setFilter, dispatch}) => {
   // Tracks the summarized info for each stock
   var stockMap = new Map();
   var entries = [];
@@ -25,8 +25,6 @@ const DataSummary = ({transactions, addSummary, setProfit, dispatch}) => {
         break;
       default: break;
     }
-    stock.getProfits();
-    stock.roundDecimals();
   };
 
   const summarize = (transactions) => {
@@ -49,6 +47,8 @@ const DataSummary = ({transactions, addSummary, setProfit, dispatch}) => {
     }
     return(
       entries.map(entry => {
+          {entry.getProfits()};
+          {entry.roundDecimals()};
           {totalProfit += parseFloat(entry.returnProfit())}
           {setProfit(totalProfit)}
           return <ShareSummary {...entry}/>
@@ -63,7 +63,7 @@ const DataSummary = ({transactions, addSummary, setProfit, dispatch}) => {
       <table className="centering">
         <thead>
           <tr>
-            <th>Name</th>
+            <th onClick={() => setFilter("stockname")}>Name</th>
             <th>Bought</th>
             <th>@avg</th>
             <th>Total</th>
@@ -104,12 +104,13 @@ DataSummary.propTypes = {
 // Container Component
 
 const mapStateToProps = state => ({
-  transactions: state.TransactionsStore.transactions,
+  transactions: state.TransactionsStore.transactions
 })
 
 const mapDispatchToProps = (dispatch) => ({
   addSummary: stock => dispatch(addSummary(stock)),
-  setProfit:  profit => dispatch(setProfit(profit))
+  setProfit:  profit => dispatch(setProfit(profit)),
+  setFilter: filter => dispatch(setSortFilter(filter))
 })
 
 export default connect(

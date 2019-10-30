@@ -1,7 +1,10 @@
 const defaultState = {
   transactions: [],
   summaries: [],
-  profit: 0
+  profit: 0,
+  sortFilter: "date",
+  sortOrder: "DESC",
+  readPercentage: [{x:1, y: 0},{x:2, y:100}]
 }
 
 const transactionsReducer = (state = defaultState, action) => {
@@ -36,6 +39,18 @@ const transactionsReducer = (state = defaultState, action) => {
           }
         ]
       };
+    case 'SET_TRANSACTIONS':
+      return {
+        ...state,
+        transactions: action.payload
+      };
+    case 'REMOVE_TRANSACTIONS':
+      return{
+        ...state,
+        transactions: [],
+        summaries: [],
+        sortFilter: "date"
+      }
     case 'ADD_SUMMARY':
     console.log("IN ADD_SUMMARY");
       return{
@@ -47,6 +62,44 @@ const transactionsReducer = (state = defaultState, action) => {
         ...state,
         profit: action.payload
       };
+    case 'SORT_FILTER':
+      return {
+        ...state,
+        transactions: [...state.transactions].sort((a,b) => {
+          var res = 0;
+          if(action.payload === state.sortFilter){
+          }
+          else{
+            if(state.sortOrder === "DESC"){
+              if(a[action.payload] < b[action.payload]) {
+                res = -1;
+              }
+              else if( a[action.payload] > b[action.payload]){
+                res = 1;
+              }
+              return res;
+            }else{
+              if(a[action.payload] < b[action.payload]) {
+                res = 1;
+              }
+              else if( a[action.payload] > b[action.payload]){
+                res = -1;
+              }
+              return res;
+            }
+          }
+        }),
+        sortFilter: action.payload,
+        sortOrder: state.sortOrder === "DESC" ? "ASC" : "DESC"
+      }
+    case 'SET_PERCENTAGE':
+      return {
+        ...state,
+        readPercentage: [
+          {x:1, y:parseFloat(action.payload)},
+          {x:2, y:parseFloat(1-action.payload)}
+        ]
+      }
     default:
       return state;
   }

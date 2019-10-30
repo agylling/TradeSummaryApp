@@ -4,14 +4,15 @@ import FileEntry from './components/FileEntry'
 import TransactionList from './components/TransactionList'
 import DataSummary from './components/DataSummary'
 import Profit from './components/Profit'
+import LoadingPie from './components/LoadingPie'
 
 function App() {
   return (
     <div className="App">
       <Profit/>
       <FileEntry />
-      <TransactionList />
       <DataSummary />
+      <TransactionList />
     </div>
   );
 }

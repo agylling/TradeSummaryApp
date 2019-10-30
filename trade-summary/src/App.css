@@ -26,3 +26,7 @@ tr:nth-child(even){
 }
 
 tr:hover {background-color: #ddd;}
+
+.sort:hover {
+  cursor: pointer;
+}

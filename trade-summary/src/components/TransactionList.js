@@ -2,16 +2,18 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Transaction from './Transaction'
 import { connect } from 'react-redux'
+import { setSortFilter, setTransactions } from '../actions'
+import { FaArrowDown } from 'react-icons/fa'
 
-const TransactionList = ({ transactions }) => (
+const TransactionList = ({ transactions, setFilter, setTransactions }) => (
   <table className="centering">
     <thead>
         <tr>
         <th> Included </th>
-        <th> Date </th>
+        <th className="sort" onClick={() => setFilter("date")}> <FaArrowDown/> Date </th>
         <th> Account </th>
         <th> Transactiontype </th>
-        <th> Name </th>
+        <th className="sort" onClick={() => setFilter("stockname")}> <FaArrowDown/> Name  </th>
         <th> Amount </th>
         <th> Price </th>
         <th> Total </th>
@@ -47,15 +49,20 @@ TransactionList.propTypes = {
   }).isRequired).isRequired,
 }
 
-const getTransactions = (transactions) => {
-  return transactions;
+const getTransactions = (transactions, sortFilter) =>{
+  return transactions.sort((a,b) => {
+    return a[sortFilter] < b[sortFilter] ? 1 : -1;
+    setTransactions(transactions);
+  })
 }
 
 const mapStateToProps = state => ({
-  transactions: getTransactions(state.TransactionsStore.transactions)
+  transactions: state.TransactionsStore.transactions
 })
 
 const mapDispatchToProps = dispatch => ({
+  setFilter: filter => dispatch(setSortFilter(filter)),
+  setTransactions: data => dispatch(setTransactions(data))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(TransactionList)
