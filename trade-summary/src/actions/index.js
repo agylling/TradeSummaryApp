@@ -24,6 +24,14 @@ export const addTransaction = (date, account, transactionType, stockname, amount
   }
 );
 
+export const setTransactions = (data) => ({
+  type: "SET_TRANSACTIONS",
+  payload: data
+})
+
+export const removeTransactions = (data) => ({
+  type: "REMOVE_TRANSACTIONS"
+})
 export const addSummary = (entries) => (
   {
     type: "ADD_SUMMARY",
@@ -34,4 +42,14 @@ export const addSummary = (entries) => (
 export const setProfit = (profit) => ({
   type: "SET_PROFIT",
   payload: profit
+})
+
+export const setSortFilter = (order) => ({
+  type: "SORT_FILTER",
+  payload: order
+})
+
+export const setPercentage = (percent) => ({
+  type: "SET_PERCENTAGE",
+  payload: percent
 })

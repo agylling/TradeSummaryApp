@@ -39,9 +39,8 @@ export default class Stock {
   }
 
   getProfits = () => {
-    var totalSold = parseFloat(this.sharesBought) < parseFloat(this.sharesSold) ?
-      parseFloat(this.sharesBought) : parseFloat(this.sharesSold);
-    this.profit = parseFloat(this.sold) - (totalSold*this.avgBought) + parseFloat(this.divident) - parseFloat(this.brokerage);
+    var totalSold = parseFloat(this.sharesBought) < parseFloat(this.sharesSold) ? parseFloat(this.sharesBought) : parseFloat(this.sharesSold);
+    this.profit = parseFloat(this.sold) - (totalSold*parseFloat(this.avgBought)) + parseFloat(this.divident) - parseFloat(this.brokerage);
   }
 
   returnProfit = () => {

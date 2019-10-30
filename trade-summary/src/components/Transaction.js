@@ -12,7 +12,7 @@ const Transaction = ({
  }) => (
   <tr>
     <td>
-      <input type="checkbox" defaultChecked
+      <input type="checkbox" checked={included}
         onClick={() => { include(index, date,included)}}
       />
     </td>

@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { addTransaction } from '../actions'
+import { addTransaction, removeTransactions, setPercentage } from '../actions'
 
 const fileReader = new FileReader();
 
-const FileEntry = ({addTransaction, dispatch}) => {
+const FileEntry = ({addTransaction, removeTransactions, setPercentage, dispatch}) => {
   const handleFileRead = (e) => {
       e.preventDefault();
       var content = fileReader.result;
@@ -13,6 +13,7 @@ const FileEntry = ({addTransaction, dispatch}) => {
       const lines = content.split('\n');
       for(var i = 0; i < lines.length; i++){
         var entry = lines[i].split(';');
+        parseFloat(setPercentage(parseFloat(i)/parseFloat(lines.length)));
         if(i === 0 || i === lines.length-1){
           continue; // First row = headers, last empty
         }
@@ -21,6 +22,7 @@ const FileEntry = ({addTransaction, dispatch}) => {
     }
 
   const handleFileChosen = (file) => {
+      removeTransactions();
       fileReader.onloadend = handleFileRead;
       fileReader.readAsText(file);
   }
@@ -46,7 +48,9 @@ FileEntry.propTypes = {
 // Container Component
 
 const mapDispatchToProps = (dispatch) => ({
-  addTransaction: (date, account, transactiontype, stockname, amount, price, total, brokerage, currency, id, index) => dispatch(addTransaction(date, account, transactiontype, stockname, amount, price, total, brokerage, currency, id, index))
+  addTransaction: (date, account, transactiontype, stockname, amount, price, total, brokerage, currency, id, index) => dispatch(addTransaction(date, account, transactiontype, stockname, amount, price, total, brokerage, currency, id, index)),
+  removeTransactions: () => dispatch(removeTransactions()),
+  setPercentage: (percent) => dispatch(setPercentage(percent))
 })
 
 export default connect(
