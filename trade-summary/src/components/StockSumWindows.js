@@ -19,8 +19,8 @@ const renderWindows = (entries) => {
   ) */
   return(
     entries.map(entry => {
-      var divClass =  parseFloat(entry.profit) > 0 ? "SumWinProfit" : "SumLossProfit";
-      var pColor = parseFloat(entry.profit) > 0 ? "greenText" : "redText";
+      var divClass =  parseFloat(entry.profit) >= 0 ? "SumWinProfit" : "SumLossProfit";
+      var pColor = parseFloat(entry.profit) >= 0 ? "greenText" : "redText";
         return (
           <div className={"centering inlineBlock StockSummaryWindow " + divClass}>
             <div className="rubricArea"> <h3> {entry.name} </h3> </div>
@@ -30,7 +30,7 @@ const renderWindows = (entries) => {
                 <p className={pColor}> {entry.profit}  <FaCoins className="sumWindowCoins"/></p>
               </div>
               <br/>
-              <FaEllipsisH onClick={() => (console.log("Clicking More"))} className="moreButton"/> 
+              <FaEllipsisH onClick={() => (console.log("Clicking More"))} className="moreButton"/>
             </div>
           </div>
         )
@@ -61,8 +61,22 @@ StockSummaryWindows.propTypes = {
   }).isRequired).isRequired
 }
 
+const getSummaries = (summaries) =>{
+  return (
+    [...summaries].sort((a,b) =>{
+      if(parseFloat(a["profit"]) < parseFloat(b["profit"])){
+        return 1;
+      }else if(parseFloat(a["profit"]) > parseFloat(b["profit"])){
+        return -1;
+      }else{
+        return 0;
+      }
+  })
+  )
+}
+
 const mapStateToProps = (state) => ({
-  summaries: state.TransactionsStore.summaries
+  summaries: getSummaries(state.TransactionsStore.summaries)
 })
 
 const mapDispatchToProps = (dispatch) => ({
