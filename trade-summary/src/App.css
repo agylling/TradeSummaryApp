@@ -96,3 +96,10 @@ tr:hover {background-color: #ddd;}
   cursor: pointer;
 }
 /*** END OF STOCKSUMMARY WINDOWS ***/
+
+.overAllChart {
+  height: 40%;
+  max-height: 2000px;
+  width: 80%;
+  max-width: 3690px;
+}
