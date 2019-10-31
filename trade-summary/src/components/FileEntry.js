@@ -18,6 +18,8 @@ const FileEntry = ({addTransaction, removeTransactions, setPercentage, dispatch}
           continue; // First row = headers, last empty
         }
         addTransaction(entry[0], entry[1], entry[2], entry[3], entry[4], entry[5], entry[6], entry[7], entry[8], entry[9], (i-1));
+        lines[i] = null;
+        entry = null;
       }
     }
 
