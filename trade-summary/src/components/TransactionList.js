@@ -49,13 +49,6 @@ TransactionList.propTypes = {
   }).isRequired).isRequired,
 }
 
-const getTransactions = (transactions, sortFilter) =>{
-  return transactions.sort((a,b) => {
-    return a[sortFilter] < b[sortFilter] ? 1 : -1;
-    setTransactions(transactions);
-  })
-}
-
 const mapStateToProps = state => ({
   transactions: state.TransactionsStore.transactions
 })

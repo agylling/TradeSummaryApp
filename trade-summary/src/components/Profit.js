@@ -8,6 +8,10 @@ const Profit = ({profit, dispatch}) => {
   )
 }
 
+Profit.propTypes = {
+  profit: PropTypes.number.isRequired
+}
+
 const mapStateToProps = state => ({
   profit: (state.TransactionsStore.profit)
 })

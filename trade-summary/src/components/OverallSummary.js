@@ -42,11 +42,11 @@ const OverallSummary = ({summaries, dispatch}) => {
               pointerOrientation="left"
               cornerRadius={0}
               centerOffset={{x:0, y:-10}}
-              flyoutWidth={({datum}) => datum.label.length*5+20}
+              flyoutWidth={({datum}) => datum.label.length*5+30}
               labelComponent={
                 <VictoryLabel
                    style={{
-                      fontSize: 5,
+                      fontSize: 7,
                    }}
                    angle={0}
                    verticalAnchor="middle"

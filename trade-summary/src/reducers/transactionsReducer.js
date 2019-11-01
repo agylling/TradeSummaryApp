@@ -4,7 +4,8 @@ const defaultState = {
   profit: 0,
   sortFilter: "date",
   sortOrder: "DESC",
-  readPercentage: [{x:1, y: 0},{x:2, y:100}]
+  readPercentage: [{x:1, y: 0},{x:2, y:100}],
+  stockPage: ""
 }
 
 const transactionsReducer = (state = defaultState, action) => {
@@ -68,6 +69,7 @@ const transactionsReducer = (state = defaultState, action) => {
         transactions: [...state.transactions].sort((a,b) => {
           var res = 0;
           if(action.payload === state.sortFilter){
+            return res;
           }
           else{
             if(state.sortOrder === "DESC"){
@@ -99,6 +101,11 @@ const transactionsReducer = (state = defaultState, action) => {
           {x:1, y:parseFloat(action.payload)},
           {x:2, y:parseFloat(1-action.payload)}
         ]
+      }
+    case 'SEE_STOCK_PAGE':
+      return{
+        ...state,
+        stockPage: action.payload
       }
     default:
       return state;

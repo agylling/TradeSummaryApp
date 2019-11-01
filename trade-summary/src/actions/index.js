@@ -53,3 +53,8 @@ export const setPercentage = (percent) => ({
   type: "SET_PERCENTAGE",
   payload: percent
 })
+
+export const setStockpage = (name) => ({
+  type: "SEE_STOCK_PAGE",
+  payload: name
+})

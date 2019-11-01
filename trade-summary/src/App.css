@@ -98,8 +98,14 @@ tr:hover {background-color: #ddd;}
 /*** END OF STOCKSUMMARY WINDOWS ***/
 
 .overAllChart {
-  height: 40%;
-  max-height: 2000px;
-  width: 80%;
+  width: 40%;
   max-width: 3690px;
 }
+
+/*** NAVBAR ***/
+.navCenter {
+  align-items: center;
+  color: white;
+}
+
+/***************/

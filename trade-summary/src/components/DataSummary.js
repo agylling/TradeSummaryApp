@@ -38,7 +38,9 @@ const DataSummary = ({transactions, addSummary, setProfit, setFilter, dispatch})
         if(entry.included){
           handleTransaction(stock, entry);
         }
+        return null;
       });
+      return null;
   };
 
   const renderSummary = (entries) => {
@@ -47,10 +49,10 @@ const DataSummary = ({transactions, addSummary, setProfit, setFilter, dispatch})
     }
     return(
       entries.map(entry => {
-          {entry.getProfits()};
-          {entry.roundDecimals()};
-          {totalProfit += parseFloat(entry.returnProfit())}
-          {setProfit(totalProfit)}
+          entry.getProfits();
+          entry.roundDecimals();
+          totalProfit += parseFloat(entry.returnProfit())
+          setProfit(totalProfit)
           return <ShareSummary {...entry}/>
       })
     )
