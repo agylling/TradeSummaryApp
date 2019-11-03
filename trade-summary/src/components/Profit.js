@@ -13,7 +13,7 @@ Profit.propTypes = {
 }
 
 const mapStateToProps = state => ({
-  profit: (state.TransactionsStore.profit)
+  profit: (state.TransactionsStore.profit.toFixed(2))
 })
 
 const mapDispatchToProps = dispatch => ({

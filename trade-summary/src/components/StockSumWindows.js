@@ -2,9 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import {FaCoins, FaEllipsisH} from 'react-icons/fa'
+import {setStockpage} from '../actions'
+import {Link} from 'react-router-dom'
 
 
-const renderWindows = (entries) => {
+const renderWindows = (entries, setStockpage) => {
   /*
   return (
     <div className="centering inlineBlock StockSummaryWindow SumWinProfit">
@@ -30,7 +32,9 @@ const renderWindows = (entries) => {
                 <p className={pColor}> {entry.profit}  <FaCoins className="sumWindowCoins"/></p>
               </div>
               <br/>
-              <FaEllipsisH onClick={() => (console.log("Clicking More"))} className="moreButton"/>
+              <Link onClick={() => setStockpage(entry.name)} to="/StockPage">
+                <FaEllipsisH className="moreButton"/>
+              </Link>
             </div>
           </div>
         )
@@ -38,10 +42,10 @@ const renderWindows = (entries) => {
   )
 };
 
-const StockSummaryWindows = ({summaries, dispatch}) => {
+const StockSummaryWindows = ({summaries, setStockpage, dispatch}) => {
   return (
     <div>
-      {renderWindows(summaries)}
+      {renderWindows(summaries, setStockpage)}
     </div>
   )
 }
@@ -58,7 +62,8 @@ StockSummaryWindows.propTypes = {
     divident: PropTypes.number.isRequired,
     profit: PropTypes.number.isRequired,
     brokerage: PropTypes.number.isRequired
-  }).isRequired).isRequired
+  }).isRequired).isRequired,
+  setStockpage: PropTypes.func.isRequired
 }
 
 const getSummaries = (summaries) =>{
@@ -80,6 +85,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
+  setStockpage: (name) => dispatch(setStockpage(name))
 })
 
 export default connect(

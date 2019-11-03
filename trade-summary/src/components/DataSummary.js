@@ -5,27 +5,27 @@ import Stock from './Stock'
 import {ShareSummary} from './Stock'
 import {addSummary, setProfit, setSortFilter} from '../actions'
 
+export const HandleTransaction = (stock, transaction) => {
+  var constObject = Object.assign({}, transaction);
+  switch(constObject.transactiontype){
+    case 'Köp':
+      stock.addBuy(constObject.amount, constObject.price, constObject.brokerage)
+      break;
+    case 'Sälj':
+      stock.sell(constObject.amount, constObject.price, constObject.brokerage);
+      break;
+    case 'Utdelning':
+      stock.addDividents(constObject.amount, constObject.price);
+      break;
+    default: break;
+  }
+};
+
 const DataSummary = ({transactions, addSummary, setProfit, setFilter, dispatch}) => {
   // Tracks the summarized info for each stock
   var stockMap = new Map();
   var entries = [];
   var totalProfit = 0;
-
-  const handleTransaction = (stock, transaction) => {
-    var constObject = Object.assign({}, transaction);
-    switch(constObject.transactiontype){
-      case 'Köp':
-        stock.addBuy(constObject.amount, constObject.price, constObject.brokerage)
-        break;
-      case 'Sälj':
-        stock.sell(constObject.amount, constObject.price, constObject.brokerage);
-        break;
-      case 'Utdelning':
-        stock.addDividents(constObject.amount, constObject.price);
-        break;
-      default: break;
-    }
-  };
 
   const summarize = (transactions) => {
       // Iterate through all transactions = true
@@ -36,7 +36,7 @@ const DataSummary = ({transactions, addSummary, setProfit, setFilter, dispatch})
         }
         var stock = stockMap.get(entry.stockname)
         if(entry.included){
-          handleTransaction(stock, entry);
+          HandleTransaction(stock, entry);
         }
         return null;
       });

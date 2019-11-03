@@ -4,7 +4,12 @@ import { connect } from 'react-redux'
 import {ShareSummary} from './Stock'
 import Transaction from './Transaction'
 import { FaArrowDown } from 'react-icons/fa'
+import Stock from './Stock'
+import { HandleTransaction } from './DataSummary'
 import { setSortFilter } from '../actions'
+import { Container, Row, Col } from 'react-bootstrap';
+
+var newSummary;
 
 const renderTransactionsTable = (setFilter, name, transactions) => {
   var summaryCells = [];
@@ -16,6 +21,15 @@ const renderTransactionsTable = (setFilter, name, transactions) => {
   if( summaryCells === [] ){
     return ( null );
   }
+  for(var entry of summaryCells){
+    if(entry.included){
+      HandleTransaction(newSummary, entry);
+    }
+  }
+  newSummary.getProfits();
+  newSummary.roundDecimals();
+  console.log(newSummary);
+  //setSummary(newSummary);
   return(
     <table className="centering">
       <thead>
@@ -34,7 +48,7 @@ const renderTransactionsTable = (setFilter, name, transactions) => {
         </tr>
       </thead>
       <tbody>
-        {transactions.map(item =>
+        {summaryCells.map(item =>
           <Transaction
             {...item}
           />
@@ -44,49 +58,41 @@ const renderTransactionsTable = (setFilter, name, transactions) => {
   )
 }
 
-const renderSummaryTable = (name, summaries) => {
-  var summaryCell = null;
-  for(var entry of summaries){
-    if(entry.name === name){
-      summaryCell = entry;
-    }
-  }
-  if( summaryCell === null ){
-    return ( null );
-  }
-
+const renderSummaryTable = (name) => {
   return (
-    <div className="centering">
-      <table className="centering">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Bought</th>
-            <th>@avg</th>
-            <th>Total</th>
-            <th>Sold</th>
-            <th>@avg</th>
-            <th>Total</th>
-            <th>Dividents</th>
-            <th>Brokerage</th>
-            <th>Profit</th>
-          </tr>
-        </thead>
-        <tbody>
-          <ShareSummary {...summaryCell}/>
-        </tbody>
-      </table>
-    </div>
+    <table className="centering">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Bought</th>
+          <th>@avg</th>
+          <th>Total</th>
+          <th>Sold</th>
+          <th>@avg</th>
+          <th>Total</th>
+          <th>Dividents</th>
+          <th>Brokerage</th>
+          <th>Profit</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ShareSummary {...newSummary}/>
+      </tbody>
+    </table>
   );
 };
 
 const StockPage = ({setFilter, name, summaries, transactions, dispatch}) => {
-
+  newSummary = new Stock(name);
   return(
-    <div>
-      {renderSummaryTable(name, summaries)}
-      {renderTransactionsTable(setFilter, name, transactions)}
-    </div>
+    <Container>
+
+      <Container>
+          {renderSummaryTable(name)}
+          <br/><br/>
+          {renderTransactionsTable(setFilter, name, transactions)}
+      </Container>
+    </Container>
   )
 }
 
@@ -117,7 +123,8 @@ StockPage.propTypes = {
     included: PropTypes.bool.isRequired,
     index: PropTypes.number.isRequired
   }).isRequired).isRequired,
-  name: PropTypes.string.isRequired
+  name: PropTypes.string.isRequired,
+  setFilter: PropTypes.func.isRequired
 }
 
 
@@ -128,7 +135,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  setFilter: filter => dispatch(setSortFilter(filter)),
+  setFilter: filter => dispatch(setSortFilter(filter))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(StockPage)

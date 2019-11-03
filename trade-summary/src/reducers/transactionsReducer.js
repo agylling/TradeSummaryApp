@@ -53,10 +53,19 @@ const transactionsReducer = (state = defaultState, action) => {
         sortFilter: "date"
       }
     case 'ADD_SUMMARY':
-    console.log("IN ADD_SUMMARY");
       return{
         ...state,
         summaries: action.payload
+      };
+    case 'SET_SUMMARY':
+      return{
+        ...state,
+        summaries:
+         state.summaries.map(summary =>
+          (summary.name === action.payload.name)
+            ? action.payload
+            : summary
+          )
       };
     case 'SET_PROFIT':
       return {
