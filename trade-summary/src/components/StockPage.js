@@ -8,6 +8,7 @@ import Stock from './Stock'
 import { HandleTransaction } from './DataSummary'
 import { setSortFilter } from '../actions'
 import { Container, Row, Col } from 'react-bootstrap';
+import StockBuySell from './graphs/StockBuySell';
 
 var newSummary;
 
@@ -86,9 +87,13 @@ const StockPage = ({setFilter, name, summaries, transactions, dispatch}) => {
   newSummary = new Stock(name);
   return(
     <Container>
-
+    <Row>
+        <Container className="al-itemsCenter centering">
+          <Col md="auto"> <StockBuySell/> </Col>
+          <Col md="auto"> {renderSummaryTable(name)} </Col>
+        </Container>
+    </Row>
       <Container>
-          {renderSummaryTable(name)}
           <br/><br/>
           {renderTransactionsTable(setFilter, name, transactions)}
       </Container>

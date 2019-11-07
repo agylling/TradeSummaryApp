@@ -6,8 +6,6 @@ const getTransactions = state => state.TransactionsStore.transactions
 export const getSortedTransactions = createSelector(
   [getOrderFilter, getTransactions],
   (sortFilter, TransactionsStore.transactions) =>{
-      switch(sortFilter) {
-
-      }
+      let sortedTransactions = sortCollection
   }
 )

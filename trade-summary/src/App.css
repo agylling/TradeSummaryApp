@@ -8,8 +8,17 @@
   margin-right: auto;
 }
 
+.al-itemsCenter{
+  align-items: center;
+}
+
 .inlineBlock {
   display: inline-block;
+}
+
+.floatLeft {
+  float: left;
+  align-items: left;
 }
 
 td {
