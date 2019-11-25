@@ -9,6 +9,7 @@ import { HandleTransaction } from './DataSummary'
 import { setSortFilter } from '../actions'
 import { Container, Row, Col } from 'react-bootstrap';
 import StockBuySell from './graphs/StockBuySell';
+import DividentBar from './graphs/DividentBar';
 
 var newSummary;
 
@@ -90,6 +91,7 @@ const StockPage = ({setFilter, name, summaries, transactions, dispatch}) => {
     <Row>
         <Container className="al-itemsCenter centering">
           <Col md="auto"> <StockBuySell/> </Col>
+          <Col md="auto"> <DividentBar/> </Col>
           <Col md="auto"> {renderSummaryTable(name)} </Col>
         </Container>
     </Row>
