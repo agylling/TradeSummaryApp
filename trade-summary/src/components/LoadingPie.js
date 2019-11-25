@@ -2,11 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { VictoryPie, VictoryAnimation, VictoryLabel } from 'victory'
+import ProgressBar from 'react-bootstrap/ProgressBar'
 
 const LoadingPie = ({readPercentage}) => {
 
   return(
     <div>
+      <ProgressBar striped variant="success" now={Math.round(readPercentage[0].y*100)} />
       <svg viewBox="0 0 400 400" width="10%" height="10%">
         <VictoryPie
           standalone={false}

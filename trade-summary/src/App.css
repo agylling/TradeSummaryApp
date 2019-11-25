@@ -8,8 +8,17 @@
   margin-right: auto;
 }
 
+.al-itemsCenter{
+  align-items: center;
+}
+
 .inlineBlock {
   display: inline-block;
+}
+
+.floatLeft {
+  float: left;
+  align-items: left;
 }
 
 td {
@@ -98,8 +107,14 @@ tr:hover {background-color: #ddd;}
 /*** END OF STOCKSUMMARY WINDOWS ***/
 
 .overAllChart {
-  height: 40%;
-  max-height: 2000px;
-  width: 80%;
+  width: 40%;
   max-width: 3690px;
 }
+
+/*** NAVBAR ***/
+.navCenter {
+  align-items: center;
+  color: white;
+}
+
+/***************/

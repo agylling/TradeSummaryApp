@@ -39,6 +39,13 @@ export const addSummary = (entries) => (
   }
 )
 
+export const setSummary = (summary) => (
+  {
+    type: "SET_SUMMARY",
+    payload: summary
+  }
+)
+
 export const setProfit = (profit) => ({
   type: "SET_PROFIT",
   payload: profit
@@ -52,4 +59,9 @@ export const setSortFilter = (order) => ({
 export const setPercentage = (percent) => ({
   type: "SET_PERCENTAGE",
   payload: percent
+})
+
+export const setStockpage = (name) => ({
+  type: "SEE_STOCK_PAGE",
+  payload: name
 })

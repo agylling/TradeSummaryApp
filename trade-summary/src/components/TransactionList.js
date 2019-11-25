@@ -2,10 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Transaction from './Transaction'
 import { connect } from 'react-redux'
-import { setSortFilter, setTransactions } from '../actions'
+import { setSortFilter } from '../actions'
 import { FaArrowDown } from 'react-icons/fa'
 
-const TransactionList = ({ transactions, setFilter, setTransactions }) => (
+const TransactionList = ({ transactions, setFilter }) => (
   <table className="centering">
     <thead>
         <tr>
@@ -49,20 +49,12 @@ TransactionList.propTypes = {
   }).isRequired).isRequired,
 }
 
-const getTransactions = (transactions, sortFilter) =>{
-  return transactions.sort((a,b) => {
-    return a[sortFilter] < b[sortFilter] ? 1 : -1;
-    setTransactions(transactions);
-  })
-}
-
 const mapStateToProps = state => ({
   transactions: state.TransactionsStore.transactions
 })
 
 const mapDispatchToProps = dispatch => ({
-  setFilter: filter => dispatch(setSortFilter(filter)),
-  setTransactions: data => dispatch(setTransactions(data))
+  setFilter: filter => dispatch(setSortFilter(filter))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(TransactionList)
