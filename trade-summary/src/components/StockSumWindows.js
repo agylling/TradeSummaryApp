@@ -4,39 +4,40 @@ import { connect } from 'react-redux'
 import {FaCoins, FaEllipsisH} from 'react-icons/fa'
 import {setStockpage} from '../actions'
 import {Link} from 'react-router-dom'
+import { Container, Row, Col } from 'react-bootstrap';
 
+const extraInfo = (entry, extraInfo) => {
+  return (
+    <Row>
+      <Col> <p> B: {entry.sharesBought} @ {entry.avgBought} </p> </Col>
+      <Col> <p> S: {entry.sharesSold} @ {parseFloat(parseFloat(entry.sold)/parseFloat(entry.sharesSold)).toFixed(2)} </p> </Col>
+      
+    </Row>
+  )
+}
 
 const renderWindows = (entries, setStockpage) => {
-  /*
-  return (
-    <div className="centering inlineBlock StockSummaryWindow SumWinProfit">
-      <div className="rubricArea"> <h3> ATLA B </h3> </div>
-      <hr className="sumAreaDivider"></hr>
-      <div className="profitArea">
-        <div className="inlineBlock">
-          <p> Profit  <FaCoins className="sumWindowCoins"/></p>
-        </div>
-      </div>
-    </div>
-  ) */
   return(
     entries.map(entry => {
       var divClass =  parseFloat(entry.profit) >= 0 ? "SumWinProfit" : "SumLossProfit";
       var pColor = parseFloat(entry.profit) >= 0 ? "greenText" : "redText";
         return (
-          <div className={"centering inlineBlock StockSummaryWindow " + divClass}>
-            <div className="rubricArea"> <h3> {entry.name} </h3> </div>
-            <hr className="sumAreaDivider"></hr>
-            <div className="profitArea">
-              <div className="inlineBlock">
+          <Container className={"centering rubricArea inlineBlock StockSummaryWindow " + divClass}>
+            <Row>
+              <Col> <p> {entry.name} </p> </Col>
+              <Col>
                 <p className={pColor}> {entry.profit}  <FaCoins className="sumWindowCoins"/></p>
-              </div>
-              <br/>
-              <Link onClick={() => setStockpage(entry.name)} to="/StockPage">
-                <FaEllipsisH className="moreButton"/>
-              </Link>
+              </Col>
+              <Col>
+                <Link className="moreButton" onClick={() => setStockpage(entry.name)} to="/StockPage">
+                  <FaEllipsisH className="moreButton"/>
+                </Link>
+              </Col>
+            </Row>
+            <div id={entry.name}>
+             {extraInfo(entry)}
             </div>
-          </div>
+          </Container>
         )
     })
   )

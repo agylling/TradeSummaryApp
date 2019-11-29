@@ -46,13 +46,18 @@ tr:hover {background-color: #ddd;}
 
 /*** STOCKSUMMARY WINDOWS ***/
 .StockSummaryWindow {
-  width: max-content;
+  width: 80%;
   height: max-content;
   border-radius: 10px;
   box-shadow: 0px 4px 4px #bbb;
   margin-bottom: 20px;
   margin-left: 10px;
   margin-right: 10px;
+}
+
+.moreButton {
+  float: right;
+  text-align: center;
 }
 
 .SumWinProfit {
@@ -69,10 +74,9 @@ tr:hover {background-color: #ddd;}
 }
 
 .rubricArea {
+  text-align: start;
   font-size: 40px;
   background-color: #fffcf3;
-  padding-left: 40px;
-  padding-right: 40px;
   padding-top: 10px;
   padding-bottom: 10px
 }
