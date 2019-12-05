@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import {VictoryChart, VictoryBar, Bar, VictoryLabel, VictoryAxis, VictoryTooltip} from 'victory'
+import {VictoryChart, VictoryBar, Bar, VictoryLabel, VictoryAxis} from 'victory'
 
 const DividentBar = ({transactions, dividents, dispatch}) => {
   var DividentSummary=[{x: "dividents",y: dividents, fill: "#4CAF50"}];
@@ -68,7 +68,6 @@ const getTransactions = (transactions, name) =>{
       }
     })
   var newTransactions = [];
-  var index = 0;
   for(var entry of tmp){
     if(entry.name === name && entry.transactiontype === "Utdelning"){
       newTransactions.push(entry);
@@ -78,7 +77,6 @@ const getTransactions = (transactions, name) =>{
 }
 
 const getSummary = (summaries, name) => {
-    var result = 0;
     for(var entry of summaries){
         if(entry.name === name){
             return entry.divident;

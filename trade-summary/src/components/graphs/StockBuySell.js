@@ -1,14 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import {VictoryChart, VictoryLegend, VictoryStack, VictoryLine, VictoryBar, Bar, VictoryLabel, VictoryAxis, VictoryScatter, VictoryGroup, VictoryTooltip} from 'victory'
-import { Container, Row, Col } from 'react-bootstrap';
+import {VictoryChart, VictoryLegend, VictoryLine, VictoryLabel, VictoryAxis, VictoryScatter, VictoryTooltip} from 'victory'
+import {Col } from 'react-bootstrap';
 
 const StockBuySell = ({transactions, stockPage, dispatch}) => {
-  var selectedObject = transactions.all[0] != null ? transactions.all[0] : {label: ""};
   return (
         <Col lg="8">
-          <VictoryChart width={800} height={500}>
+          <VictoryChart>
           <VictoryLegend x={170} y={10}
               centerTitle
               orientation="horizontal"
@@ -109,7 +108,7 @@ const getTransactions = (transactions, stockPage) => {
     if(entry.stockname === stockPage && entry.included === true){
       var fillColor = entry.transactiontype === ("Köp" || "Utdelning") ? "#4CAF50" : "#BB1313"
       stockTransactions.push({x: entry.date, y: parseFloat(entry.price), label: JSON.stringify(entry,null,"\n"), fill: fillColor, index: entry.index });
-      if(fillColor == "#4CAF50"){
+      if(fillColor === "#4CAF50"){
         buyTransactions.push({x: entry.date, y: parseFloat(entry.price), fill: fillColor, index: entry.index})
       }else{
         sellTransactions.push({x: entry.date, y: parseFloat(entry.price), fill: fillColor, index: entry.index})

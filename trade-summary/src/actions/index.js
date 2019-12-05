@@ -65,3 +65,8 @@ export const setStockpage = (name) => ({
   type: "SEE_STOCK_PAGE",
   payload: name
 })
+
+export const showExtraStockInfo = (name) => ({
+  type: "SHOW_EXTRA_STOCK_INFO",
+  payload: name
+})

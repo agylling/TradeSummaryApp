@@ -1,9 +1,6 @@
 import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import TransactionList from './components/TransactionList'
-import DataSummary from './components/DataSummary'
-import LoadingPie from './components/LoadingPie'
 import MyNavBar from './components/MyNavBar'
 
 const App = () => {

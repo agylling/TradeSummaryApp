@@ -2,14 +2,15 @@ import React from 'react'
 import TransactionList from './TransactionList'
 import DataSummary from './DataSummary'
 import Profit from './Profit'
+import {Container} from 'react-bootstrap'
 
 const DataTables = () => {
   return(
-    <div>
+    <Container>
       <Profit/>
-      <DataSummary/>
-      <TransactionList/>
-    </div>
+      <DataSummary name=""/>
+      <TransactionList name=""/>
+    </Container>
   )
 }
 

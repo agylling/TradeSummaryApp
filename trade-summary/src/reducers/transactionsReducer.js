@@ -5,13 +5,13 @@ const defaultState = {
   sortFilter: "date",
   sortOrder: "DESC",
   readPercentage: [{x:1, y: 0},{x:2, y:100}],
-  stockPage: ""
+  stockPage: "",
+  showExtraStock: "" // Decides which stock should render extra information
 }
 
 const transactionsReducer = (state = defaultState, action) => {
   switch(action.type) {
     case 'INCLUDE':
-      console.log("IN INCLUDE")
       return {...state, transactions:
         state.transactions.map(transaction =>
         (transaction.index === action.index && transaction.name === action.name)
@@ -115,6 +115,11 @@ const transactionsReducer = (state = defaultState, action) => {
       return{
         ...state,
         stockPage: action.payload
+      }
+    case 'SHOW_EXTRA_STOCK_INFO':
+      return{
+        ...state,
+        showExtraStock: action.payload
       }
     default:
       return state;

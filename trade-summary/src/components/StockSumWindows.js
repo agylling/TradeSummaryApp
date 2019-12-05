@@ -1,24 +1,46 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import {FaCoins, FaEllipsisH} from 'react-icons/fa'
-import {setStockpage} from '../actions'
+import {FaCoins, FaEllipsisH, FaAngleUp, FaAngleDown, FaListUl} from 'react-icons/fa'
+import {setStockpage, showExtraStockInfo} from '../actions'
 import {Link} from 'react-router-dom'
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, } from 'react-bootstrap';
+import TransactionList from './TransactionList'
 
-const extraInfo = (entry, extraInfo) => {
+const renderTransactions = (name) => {
+
   return (
-    <Row>
-      <Col> <p> B: {entry.sharesBought} @ {entry.avgBought} </p> </Col>
-      <Col> <p> S: {entry.sharesSold} @ {parseFloat(parseFloat(entry.sold)/parseFloat(entry.sharesSold)).toFixed(2)} </p> </Col>
-      
+    <Row className={"transactionList"}>
+      <Col>
+       <TransactionList name={name}/>
+      </Col>
     </Row>
   )
 }
 
-const renderWindows = (entries, setStockpage) => {
+const extraInfo = (entry, showExtraStock) => {
+  if(showExtraStock === entry.name){
+    return (
+      <Container>
+        <Row>
+          <Col> <p> B: {entry.sharesBought} @ {entry.avgBought} </p> </Col>
+          <Col> <p> S: {entry.sharesSold} @ {parseFloat(parseFloat(entry.sold)/parseFloat(entry.sharesSold)).toFixed(2)} </p> </Col>
+          <Col> <p> Dividents: {entry.divident} </p> </Col>
+        </Row>
+      </Container>
+    )
+  }else{
+    return null
+  }
+}
+
+
+const renderWindows = (entries, setStockpage, setShowExtraStock, showExtraStock) => {
   return(
     entries.map(entry => {
+      const arrowIcon = showExtraStock === entry.name ? 
+        <FaAngleUp onClick={() => setShowExtraStock("") }></FaAngleUp> : 
+        <FaAngleDown onClick={() => setShowExtraStock(entry.name) }></FaAngleDown>;
       var divClass =  parseFloat(entry.profit) >= 0 ? "SumWinProfit" : "SumLossProfit";
       var pColor = parseFloat(entry.profit) >= 0 ? "greenText" : "redText";
         return (
@@ -29,25 +51,24 @@ const renderWindows = (entries, setStockpage) => {
                 <p className={pColor}> {entry.profit}  <FaCoins className="sumWindowCoins"/></p>
               </Col>
               <Col>
+                {arrowIcon}
                 <Link className="moreButton" onClick={() => setStockpage(entry.name)} to="/StockPage">
-                  <FaEllipsisH className="moreButton"/>
+                  <FaListUl className="moreButton"/>
                 </Link>
               </Col>
             </Row>
-            <div id={entry.name}>
-             {extraInfo(entry)}
-            </div>
+              {extraInfo(entry, showExtraStock)}
           </Container>
         )
     })
   )
 };
 
-const StockSummaryWindows = ({summaries, setStockpage, dispatch}) => {
+const StockSummaryWindows = ({summaries, setStockpage, setShowExtraStock, showExtraStock, dispatch}) => {
   return (
-    <div>
-      {renderWindows(summaries, setStockpage)}
-    </div>
+    <Container>
+      {renderWindows(summaries, setStockpage, setShowExtraStock, showExtraStock)}
+    </Container>
   )
 }
 
@@ -64,7 +85,9 @@ StockSummaryWindows.propTypes = {
     profit: PropTypes.number.isRequired,
     brokerage: PropTypes.number.isRequired
   }).isRequired).isRequired,
-  setStockpage: PropTypes.func.isRequired
+  setStockpage: PropTypes.func.isRequired,
+  setShowExtraStock: PropTypes.func.isRequired,
+  showExtraStock: PropTypes.string.isRequired
 }
 
 const getSummaries = (summaries) =>{
@@ -82,11 +105,13 @@ const getSummaries = (summaries) =>{
 }
 
 const mapStateToProps = (state) => ({
-  summaries: getSummaries(state.TransactionsStore.summaries)
+  summaries: getSummaries(state.TransactionsStore.summaries),
+  showExtraStock: state.TransactionsStore.showExtraStock,
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  setStockpage: (name) => dispatch(setStockpage(name))
+  setStockpage: (name) => dispatch(setStockpage(name)),
+  setShowExtraStock: (name) => dispatch(showExtraStockInfo(name))
 })
 
 export default connect(

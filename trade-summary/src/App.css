@@ -44,6 +44,27 @@ tr:hover {background-color: #ddd;}
   cursor: pointer;
 }
 
+/***** GRAPHS ******/
+.summaryGraph{
+  height: 40vh;
+}
+
+/*******************/
+
+/*** TRANSACTIONLIST ***/
+.transactionList{
+  font-size: 0.4em;
+  overflow-x: scroll;
+}
+/***********************/
+
+
+/******** STOCKPAGE *********/
+.fullScreenWidth{
+  max-width: 100vw !important;
+}
+/****************************/
+
 /*** STOCKSUMMARY WINDOWS ***/
 .StockSummaryWindow {
   width: 80%;
@@ -112,6 +133,7 @@ tr:hover {background-color: #ddd;}
 
 .overAllChart {
   width: 40%;
+  height: 100%;
   max-width: 3690px;
 }
 

@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import Stock from './Stock'
 import {ShareSummary} from './Stock'
 import {addSummary, setProfit, setSortFilter} from '../actions'
+import {getNewTransactions} from './TransactionList'
 
 export const HandleTransaction = (stock, transaction) => {
   var constObject = Object.assign({}, transaction);
@@ -21,7 +22,13 @@ export const HandleTransaction = (stock, transaction) => {
   }
 };
 
-const DataSummary = ({transactions, addSummary, setProfit, setFilter, dispatch}) => {
+const DataSummary = ({transactions, addSummary, setProfit, setFilter, name, dispatch}) => {
+  var copyOfTransactions = [...transactions];
+  // If we havespecified a particular stock to review summary on, disregard the rest
+  if(name !== "" && name !== "all"){
+    // Function is exported from TransactionList
+    copyOfTransactions = getNewTransactions(copyOfTransactions, name);
+  }
   // Tracks the summarized info for each stock
   var stockMap = new Map();
   var entries = [];
@@ -59,7 +66,7 @@ const DataSummary = ({transactions, addSummary, setProfit, setFilter, dispatch})
   };
 
   return(
-    summarize(transactions),
+    summarize(copyOfTransactions),
     addSummary(entries),
     <div className="centering">
       <table className="centering">

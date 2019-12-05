@@ -5,8 +5,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import {BrowserRouter, HashRouter, Route, Switch, Link} from 'react-router-dom'
-import { LinkContainer } from 'react-router-bootstrap';
+import {BrowserRouter, Route, Switch, Link, Redirect} from 'react-router-dom'
 
 import DataTables from './DataTables'
 import Home from './Home'
@@ -45,6 +44,7 @@ const MyNavBar = ({setStockpage, summaries, dispatch}) => {
         </Navbar.Collapse>
       </Navbar>
       <Switch>
+        <Redirect exact from="/" to="/Home" />
         <Route exact path="/Home" component={Home} />
         <Route path="/DataTables" component={DataTables} />
         <Route path="/StockPage" component={StockPage} />

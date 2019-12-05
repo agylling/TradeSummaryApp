@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import {VictoryChart, VictoryBar, Bar, VictoryLabel, VictoryAxis, VictoryScatter, VictoryGroup, VictoryTooltip} from 'victory'
+import {VictoryChart, VictoryBar, Bar, VictoryLabel, VictoryAxis, VictoryTooltip} from 'victory'
+import { Container } from 'react-bootstrap'
 
 const OverallSummary = ({summaries, dispatch}) => {
   var averageTrade = 500;
@@ -15,7 +16,7 @@ const OverallSummary = ({summaries, dispatch}) => {
   averageTrade = averageTrade/totalNonZeroTrades;
   var averageColor = averageTrade > 0 ? "#4CAF50" : "#BB1313";
   return (
-    <div className="centering overAllChart">
+    <Container className="centering overAllChart">
       <VictoryChart
         domainPadding={{ x: 10 }}
       >
@@ -68,7 +69,7 @@ const OverallSummary = ({summaries, dispatch}) => {
           style={{ tickLabels: {fill: "none"}}}
         />
       </VictoryChart>
-    </div>
+    </Container>
   );
 }
 
