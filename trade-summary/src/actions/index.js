@@ -70,3 +70,7 @@ export const showExtraStockInfo = (name) => ({
   type: "SHOW_EXTRA_STOCK_INFO",
   payload: name
 })
+
+export const renderData = () => ({
+  type: "RENDER_DATA"
+})

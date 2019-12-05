@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import {FaCoins, FaEllipsisH, FaAngleUp, FaAngleDown, FaListUl} from 'react-icons/fa'
-import {setStockpage, showExtraStockInfo} from '../actions'
+import {setStockpage, showExtraStockInfo, renderData} from '../actions'
 import {Link} from 'react-router-dom'
 import { Container, Row, Col, } from 'react-bootstrap';
 import TransactionList from './TransactionList'
@@ -64,7 +64,10 @@ const renderWindows = (entries, setStockpage, setShowExtraStock, showExtraStock)
   )
 };
 
-const StockSummaryWindows = ({summaries, setStockpage, setShowExtraStock, showExtraStock, dispatch}) => {
+const StockSummaryWindows = ({summaries, setStockpage, setShowExtraStock, showExtraStock, renderData, dispatch}) => {
+  if(renderData === false){
+    return (null);
+  }
   return (
     <Container>
       {renderWindows(summaries, setStockpage, setShowExtraStock, showExtraStock)}
@@ -87,7 +90,8 @@ StockSummaryWindows.propTypes = {
   }).isRequired).isRequired,
   setStockpage: PropTypes.func.isRequired,
   setShowExtraStock: PropTypes.func.isRequired,
-  showExtraStock: PropTypes.string.isRequired
+  showExtraStock: PropTypes.string.isRequired,
+  renderData: PropTypes.bool.isRequired
 }
 
 const getSummaries = (summaries) =>{
@@ -107,6 +111,7 @@ const getSummaries = (summaries) =>{
 const mapStateToProps = (state) => ({
   summaries: getSummaries(state.TransactionsStore.summaries),
   showExtraStock: state.TransactionsStore.showExtraStock,
+  renderData: state.TransactionsStore.renderData
 })
 
 const mapDispatchToProps = (dispatch) => ({

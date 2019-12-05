@@ -34,9 +34,6 @@ const MyNavBar = ({setStockpage, summaries, dispatch}) => {
           <Nav className="mr-auto navCenter">
             <Link className="navCenter" to="/Home">Home</Link>
             <Link className="navCenter" to="/DataTables">Data Tables</Link>
-            <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
-              {items(summaries)}
-            </NavDropdown>
           </Nav>
           <Nav>
             <Link className="navCenter" to="#About">About</Link>

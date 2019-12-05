@@ -22,7 +22,11 @@ export const HandleTransaction = (stock, transaction) => {
   }
 };
 
-const DataSummary = ({transactions, addSummary, setProfit, setFilter, name, dispatch}) => {
+const DataSummary = ({transactions, addSummary, setProfit, setFilter, name, renderData, dispatch}) => {
+  if(renderData === false){
+    return (null);
+  }
+
   var copyOfTransactions = [...transactions];
   // If we havespecified a particular stock to review summary on, disregard the rest
   if(name !== "" && name !== "all"){
@@ -107,13 +111,15 @@ DataSummary.propTypes = {
     included: PropTypes.bool.isRequired,
     index: PropTypes.number.isRequired
   }).isRequired).isRequired,
-  addSummary: PropTypes.func.isRequired
+  addSummary: PropTypes.func.isRequired,
+  renderData: PropTypes.bool.isRequired
 }
 
 // Container Component
 
 const mapStateToProps = state => ({
-  transactions: state.TransactionsStore.transactions
+  transactions: state.TransactionsStore.transactions,
+  renderData: state.TransactionsStore.renderData
 })
 
 const mapDispatchToProps = (dispatch) => ({

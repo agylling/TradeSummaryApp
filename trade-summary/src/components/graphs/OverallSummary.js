@@ -4,7 +4,10 @@ import { connect } from 'react-redux'
 import {VictoryChart, VictoryBar, Bar, VictoryLabel, VictoryAxis, VictoryTooltip} from 'victory'
 import { Container } from 'react-bootstrap'
 
-const OverallSummary = ({summaries, dispatch}) => {
+const OverallSummary = ({summaries, renderData, dispatch}) => {
+  if(renderData === false){
+    return (null);
+  }
   var averageTrade = 500;
   var totalNonZeroTrades = 0;
   for(var entry of summaries){
@@ -85,7 +88,8 @@ OverallSummary.propTypes = {
     divident: PropTypes.number.isRequired,
     profit: PropTypes.number.isRequired,
     brokerage: PropTypes.number.isRequired
-  }).isRequired).isRequired
+  }).isRequired).isRequired,
+  renderData: PropTypes.bool.isRequired
 }
 
 const getSummaries = (summaries) =>{
@@ -117,7 +121,8 @@ const getSummaries = (summaries) =>{
 }
 
 const mapStateToProps = (state) => ({
-  summaries: getSummaries(state.TransactionsStore.summaries)
+  summaries: getSummaries(state.TransactionsStore.summaries),
+  renderData: state.TransactionsStore.renderData
 })
 
 const mapDispatchToProps = dispatch => ({

@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { addTransaction, removeTransactions, setPercentage } from '../actions'
+import { addTransaction, removeTransactions, setPercentage, renderData } from '../actions'
 
 const fileReader = new FileReader();
 
-const FileEntry = ({addTransaction, removeTransactions, setPercentage, dispatch}) => {
+const FileEntry = ({addTransaction, removeTransactions, setPercentage, renderData, dispatch}) => {
   const handleFileRead = (e) => {
       e.preventDefault();
       var content = fileReader.result;
@@ -27,6 +27,7 @@ const FileEntry = ({addTransaction, removeTransactions, setPercentage, dispatch}
       removeTransactions();
       fileReader.onloadend = handleFileRead;
       fileReader.readAsText(file);
+      renderData();
   }
 
   return(
@@ -52,7 +53,8 @@ FileEntry.propTypes = {
 const mapDispatchToProps = (dispatch) => ({
   addTransaction: (date, account, transactiontype, stockname, amount, price, total, brokerage, currency, id, index) => dispatch(addTransaction(date, account, transactiontype, stockname, amount, price, total, brokerage, currency, id, index)),
   removeTransactions: () => dispatch(removeTransactions()),
-  setPercentage: (percent) => dispatch(setPercentage(percent))
+  setPercentage: (percent) => dispatch(setPercentage(percent)),
+  renderData: () => dispatch(renderData())
 })
 
 export default connect(

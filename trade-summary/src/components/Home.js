@@ -30,7 +30,7 @@ const Home = () => {
         </Row>
       </Container>
       <Container>
-        <DataSummary name=""/>
+        <DataSummary name="all"/>
       </Container>
     </Container>
   )

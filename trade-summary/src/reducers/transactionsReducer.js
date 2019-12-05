@@ -6,7 +6,8 @@ const defaultState = {
   sortOrder: "DESC",
   readPercentage: [{x:1, y: 0},{x:2, y:100}],
   stockPage: "",
-  showExtraStock: "" // Decides which stock should render extra information
+  showExtraStock: "", // Decides which stock should render extra information
+  renderData: false
 }
 
 const transactionsReducer = (state = defaultState, action) => {
@@ -50,7 +51,8 @@ const transactionsReducer = (state = defaultState, action) => {
         ...state,
         transactions: [],
         summaries: [],
-        sortFilter: "date"
+        sortFilter: "date",
+        renderData: false
       }
     case 'ADD_SUMMARY':
       return{
@@ -120,6 +122,11 @@ const transactionsReducer = (state = defaultState, action) => {
       return{
         ...state,
         showExtraStock: action.payload
+      }
+    case 'RENDER_DATA':
+      return{
+        ...state,
+        renderData: true
       }
     default:
       return state;
