@@ -28,7 +28,7 @@ const MyNavBar = ({setStockpage, summaries, dispatch}) => {
   return(
     <BrowserRouter>
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-        <Navbar.Brand href="/Home">Trade Summary</Navbar.Brand>
+        <Navbar.Brand href="/">Trade Summary</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto navCenter">
@@ -41,7 +41,7 @@ const MyNavBar = ({setStockpage, summaries, dispatch}) => {
         </Navbar.Collapse>
       </Navbar>
       <Switch>
-        <Redirect exact from="/" to="/Home" />
+        <Route exact from="/" component={Home} />
         <Route exact path="/Home" component={Home} />
         <Route path="/DataTables" component={DataTables} />
         <Route path="/StockPage" component={StockPage} />
