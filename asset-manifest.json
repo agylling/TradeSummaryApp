@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/TradeSummaryApp/static/css/main.9b31ee2c.chunk.css",
-    "main.js": "/TradeSummaryApp/static/js/main.80811133.chunk.js",
-    "main.js.map": "/TradeSummaryApp/static/js/main.80811133.chunk.js.map",
+    "main.js": "/TradeSummaryApp/static/js/main.684c5986.chunk.js",
+    "main.js.map": "/TradeSummaryApp/static/js/main.684c5986.chunk.js.map",
     "runtime-main.js": "/TradeSummaryApp/static/js/runtime-main.0211e248.js",
     "runtime-main.js.map": "/TradeSummaryApp/static/js/runtime-main.0211e248.js.map",
     "static/css/2.0624914a.chunk.css": "/TradeSummaryApp/static/css/2.0624914a.chunk.css",
-    "static/js/2.179ddbdd.chunk.js": "/TradeSummaryApp/static/js/2.179ddbdd.chunk.js",
-    "static/js/2.179ddbdd.chunk.js.map": "/TradeSummaryApp/static/js/2.179ddbdd.chunk.js.map",
+    "static/js/2.1fac5d8e.chunk.js": "/TradeSummaryApp/static/js/2.1fac5d8e.chunk.js",
+    "static/js/2.1fac5d8e.chunk.js.map": "/TradeSummaryApp/static/js/2.1fac5d8e.chunk.js.map",
     "index.html": "/TradeSummaryApp/index.html",
-    "precache-manifest.5aa3780d5cef37cb58f69932a919ded2.js": "/TradeSummaryApp/precache-manifest.5aa3780d5cef37cb58f69932a919ded2.js",
+    "precache-manifest.46651d62efb0f670780209cae5de30b1.js": "/TradeSummaryApp/precache-manifest.46651d62efb0f670780209cae5de30b1.js",
     "service-worker.js": "/TradeSummaryApp/service-worker.js",
     "static/css/2.0624914a.chunk.css.map": "/TradeSummaryApp/static/css/2.0624914a.chunk.css.map",
     "static/css/main.9b31ee2c.chunk.css.map": "/TradeSummaryApp/static/css/main.9b31ee2c.chunk.css.map"
@@ -17,8 +17,8 @@
   "entrypoints": [
     "static/js/runtime-main.0211e248.js",
     "static/css/2.0624914a.chunk.css",
-    "static/js/2.179ddbdd.chunk.js",
+    "static/js/2.1fac5d8e.chunk.js",
     "static/css/main.9b31ee2c.chunk.css",
-    "static/js/main.80811133.chunk.js"
+    "static/js/main.684c5986.chunk.js"
   ]
 }
