@@ -6,6 +6,13 @@ export const include = (index, date, include) => (
   included: include}
 );
 
+export const addTransactions = (transactions) => (
+  {
+  type: "ADD_TRANSACTIONS",
+  payload: transactions
+  }
+)
+
 export const addTransaction = (date, account, transactionType, stockname, amount, price, total, brokerage, currency, id, index) => (
   {
   type: "ADD_TRANSACTION",

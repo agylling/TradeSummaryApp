@@ -20,6 +20,12 @@ const transactionsReducer = (state = defaultState, action) => {
           : transaction
         )
     }
+    // Add whole chunk of transactions
+    case 'ADD_TRANSACTIONS':
+      return{
+        ...state,
+        transactions: action.payload
+      }
     case 'ADD_TRANSACTION':
       return {
         ...state,
