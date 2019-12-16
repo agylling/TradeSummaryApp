@@ -13,9 +13,8 @@ const StockPage = ({name, dispatch}) => {
     <Container className={"fullScreenWidth"}>
       <Row>
         <Col lg={5} md={12} sm={12}> 
-          <Col> <DataSummary name={name}/></Col>
-          <Col md="auto"> <StockBuySell/> </Col>
-          <Col md="auto"> <DividentBar/> </Col>
+          <Row><Col> <DataSummary name={name}/></Col></Row>
+          <Row><StockBuySell/> <DividentBar/></Row>
         </Col>
         <Col lg={7} md={12} sm={12}> 
           <TransactionList name={name}/>

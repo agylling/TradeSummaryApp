@@ -1,13 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import {Col} from 'react-bootstrap'
 
 const Profit = ({profit, renderData, dispatch}) => {
   if(renderData === false){
     return (null);
   }
   return (
-  <h2> Total Profit: {profit} </h2>
+  <Col><p className="TotalProfit"> Total Profit: {profit} </p></Col>
   )
 }
 

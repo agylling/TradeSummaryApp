@@ -44,6 +44,12 @@ tr:hover {background-color: #ddd;}
   cursor: pointer;
 }
 
+/****** HOME *******/
+.TotalProfit{
+  font-size: 3em;
+}
+/*******************/
+
 /***** GRAPHS ******/
 .summaryGraph{
   height: 40vh;

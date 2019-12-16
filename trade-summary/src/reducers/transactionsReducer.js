@@ -57,7 +57,12 @@ const transactionsReducer = (state = defaultState, action) => {
         ...state,
         transactions: [],
         summaries: [],
+        profit: 0,
         sortFilter: "date",
+        sortOrder: "DESC",
+        readPercentage: [{x:1, y: 0},{x:2, y:100}],
+        stockPage: "",
+        showExtraStock: "", // Decides which stock should render extra information
         renderData: false
       }
     case 'ADD_SUMMARY':

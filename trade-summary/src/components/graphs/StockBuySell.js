@@ -20,10 +20,6 @@ const StockBuySell = ({transactions, stockPage, dispatch}) => {
             />
             <VictoryScatter
                     data={transactions.all}
-                    animate={{
-                      duration: 500,
-                      onLoad: { duration: 1000 }
-                    }}
                     style={{
                       data: {fill: ({ datum }) => datum.fill},
                       labels: {fill: "black"}

@@ -5,6 +5,7 @@ import FileEntry from './FileEntry'
 import Profit from './Profit'
 import DataSummary from './DataSummary'
 import {Container, Row, Col} from 'react-bootstrap'
+import InvestedMoney from './graphs/InvestedMoney'
 
 const Home = () => {
   return(
@@ -12,7 +13,7 @@ const Home = () => {
       <Container>
         <Row>
           <Col>
-          <FileEntry />
+            <FileEntry/>
           </Col>
         </Row>
         <Row>
@@ -21,6 +22,11 @@ const Home = () => {
           </Col>
           <Col className={"centering"}>
             <Profit/>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <InvestedMoney/>          
           </Col>
         </Row>
         <Row>

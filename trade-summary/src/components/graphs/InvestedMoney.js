@@ -1,86 +1,75 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import {VictoryChart, VictoryLegend, VictoryLine, VictoryLabel, VictoryAxis, VictoryScatter, VictoryTooltip} from 'victory'
+import {VictoryChart,VictoryGroup, VictoryLegend, VictoryLine, VictoryLabel, VictoryAxis, VictoryArea, VictoryScatter, VictoryTooltip} from 'victory'
 import {Col } from 'react-bootstrap';
 
-const InvestedMoney = ({transactions, dispatch}) => {
+const InvestedMoney = ({transactions,renderData, dispatch}) => {
+  if(renderData === false){
+    return (null);
+  }
   return (
     <Col lg="8">
         <VictoryChart>
         <VictoryLegend x={170} y={10}
-            centerTitle
-            orientation="horizontal"
-            gutter={20}
-            style={{ border: { stroke: "black" }, title: {fontSize: 20 } }}
-            data={[
-            { name: "Deposit", symbol: { fill: "#4CAF50" } },
-            { name: "Withdrawal", symbol: { fill: "#BB1313" } }
-            ]}
-        />
-        <VictoryScatter
-                data={transactions}
-                animate={{
-                    duration: 500,
-                    onLoad: { duration: 1000 }
-                }}
-                style={{
-                    data: {fill: ({ datum }) => datum.fill},
-                    labels: {fill: "black"}
-                }}
-                labelComponent={
-                    <VictoryTooltip
-                    style={{
-                        fontSize: 5,
+                centerTitle
+                orientation="horizontal"
+                gutter={20}
+                style={{ title: {fontSize: 20 } }}
+                data={[
+                { name: "Deposited: " + transactions.deposited, symbol: { fill: "#4CAF50" } },
+                { name: "Withrewed: " + transactions.withrewed, symbol: { fill: "#BB1313" } }
+                ]}
+            />
+          <VictoryGroup
+            style={{
+              data: { strokeWidth: 2, fillOpacity: 0.4 }
+            }}
+          >
+            <VictoryArea
+                    data={transactions.deposits}
+                    animate={{
+                        duration: 500,
+                        onLoad: { duration: 1000 }
                     }}
-                    constrainToVisibleArea={true}
-                    pointerOrientation="left"
-                    cornerRadius={0}
-                    centerOffset={{x:0, y:0}}
-                    labelComponent={
-                        <VictoryLabel
-                        style={{
-                            fontSize: 7,
-                        }}
-                        angle={0}
-                        verticalAnchor="middle"
-                        textAnchor="middle"
-                        dx={0}
-                        dy={0}
-                        text={({datum}) => datum.label}
-                        />
-                    }
-                    />
-                }
+                    style={{
+                        data: {fill: "#4CAF50", stroke:"#4CAF52"},
+                        labels: {fill: "black"}
+                    }}
+            />
+            <VictoryArea
+                    data={transactions.withdrawals}
+                    animate={{
+                        duration: 500,
+                        onLoad: { duration: 1000 }
+                    }}
+                    style={{
+                        data: {fill: "#4CAF50", stroke: "#BB1313"},
+                        labels: {fill: "black"}
+                    }}
             />
             <VictoryAxis dependentAxis
             orientation="left"
             />
             <VictoryAxis
-            orientation="bottom"
-            tickCount={2}
-            tickValues={[transactions[0], transactions[transactions.length-1]]}
-            />
-        </VictoryChart>
+              orientation="bottom"
+              tickCount={2}
+              tickValues={[transactions.all[0], transactions.all[transactions.length-1]]}
+            />            
+          </VictoryGroup>
+      </VictoryChart>
     </Col>
   );
 }
 
 InvestedMoney.propTypes = {
     transactions: PropTypes.arrayOf(PropTypes.shape({
-      date: PropTypes.string.isRequired,
-      account: PropTypes.string.isRequired,
-      transactiontype: PropTypes.string.isRequired,
-      stockname: PropTypes.string.isRequired,
-      amount: PropTypes.string.isRequired,
-      price: PropTypes.string.isRequired,
-      total: PropTypes.string.isRequired,
-      brokerage: PropTypes.string.isRequired,
-      currency: PropTypes.string.isRequired,
-      id: PropTypes.string.isRequired,
-      included: PropTypes.bool.isRequired,
-      index: PropTypes.number.isRequired
-    }).isRequired).isRequired
+      x: PropTypes.string.isRequired,
+      y: PropTypes.number.isRequired,
+      fill: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired
+    }).isRequired).isRequired,
+    renderData: PropTypes.bool.isRequired
   }
 
 const getTransactions = (transactions, name) =>{
@@ -93,18 +82,29 @@ const getTransactions = (transactions, name) =>{
         return 0;
       }
     })
-  var newTransactions = [];
+  var deposited = 0;
+  var withrewed = 0;
+  var deposits = [];
+  var withdrawals = [];
+  var all = [];
   for(var entry of tmp){
     if(entry.transactiontype === "Insättning" || entry.transactiontype === "Uttag" ){
-      var fillColor = entry.transactiontype === ("Insättning" || "Uttag") ? "#4CAF50" : "#BB1313";
-      newTransactions.push({x: entry.date, y: entry.amount, fill: fillColor});
+      if(entry.transactiontype === "Insättning"){
+        deposits.push({x: entry.date, y: parseFloat(entry.total), fill: "#4CAF50", label:""});
+        deposited += parseFloat(entry.total);
+      }else{
+        withdrawals.push({x: entry.date, y: parseFloat(entry.total), fill: "#BB1313", label:""});
+        withrewed += parseFloat(entry.total);
+      }
+      all.push({x: entry.date, y: parseFloat(entry.total), fill: "#000000", label:""})
     }
   }
-  return newTransactions;
+  return {deposits: deposits, withdrawals: withdrawals, all:all, deposited: deposited, withrewed: withrewed};
 }
 
 const mapStateToProps = (state) => ({
-  transactions: getTransactions(state.TransactionsStore.transactions)
+  transactions: getTransactions(state.TransactionsStore.transactions),
+  renderData: state.TransactionsStore.renderData
 })
 
 const mapDispatchToProps = dispatch => ({

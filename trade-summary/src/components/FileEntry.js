@@ -7,16 +7,16 @@ import TransactionList from './TransactionList';
 const fileReader = new FileReader();
 
 const FileEntry = ({addTransaction, removeTransactions, setPercentage, renderData, addTransactions, dispatch}) => {
-  var transactions = [];
 
   const handleFileRead = (e) => {
+      var transactions = [];
       e.preventDefault();
       var content = fileReader.result;
       content = content.replace(/,/g, ".");
       const lines = content.split('\n');
       for(var i = 0; i < lines.length; i++){
         var entry = lines[i].split(';');
-        parseFloat(setPercentage(parseFloat(i)/parseFloat(lines.length)));
+        //parseFloat(setPercentage(parseFloat(i)/parseFloat(lines.length)));
         if(i === 0 || i === lines.length-1){
           continue; // First row = headers, last empty
         }
@@ -56,7 +56,7 @@ const FileEntry = ({addTransaction, removeTransactions, setPercentage, renderDat
              id='file'
              className='input-file'
              accept='.csv'
-             onChange={e => handleFileChosen(e.target.files[0], addTransaction)}
+             onChange={e => handleFileChosen(e.target.files[0])}
       />
     </div>
   )

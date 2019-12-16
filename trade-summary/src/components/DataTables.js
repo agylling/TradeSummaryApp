@@ -8,7 +8,7 @@ const DataTables = () => {
   return(
     <Container>
       <Profit/>
-      <DataSummary name=""/>
+      <DataSummary name="all"/>
       <TransactionList name=""/>
     </Container>
   )

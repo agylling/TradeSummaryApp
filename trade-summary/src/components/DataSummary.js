@@ -70,6 +70,7 @@ const DataSummary = ({transactions, addSummary, setProfit, setFilter, name, rend
   };
 
   return(
+    stockMap.clear(),
     summarize(copyOfTransactions),
     addSummary(entries),
     <div className="centering">

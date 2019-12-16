@@ -2,39 +2,40 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import {VictoryChart, VictoryBar, Bar, VictoryLabel, VictoryAxis} from 'victory'
+import { Container, Col } from 'react-bootstrap'
 
 const DividentBar = ({transactions, dividents, dispatch}) => {
   var DividentSummary=[{x: "dividents",y: dividents, fill: "#4CAF50"}];
   return (
-        <div className="centering overAllChart">
-        <VictoryChart>
-            <VictoryBar
-            animate={{
-                duration: 2000,
-                onLoad: { duration: 1000 }
-            }}
-            
-            dataComponents={
-                <Bar events={{onMouseOver: () => console.log("mouseover")}}/>
-            }
-            style={{
-                data: {fill: ({ datum }) => datum.fill, width: 200, height: 400},
-            }}
-            data={DividentSummary}
-            labels={({datum}) => datum.y}
-            labelComponent={
-                <VictoryLabel style={{
-                    fontSize: 50, fill:"black"    
-                }} 
-                textAnchor="middle" verticalAnchor="end"
-                dy={0}
-                />
-            }
-            />
-            <VictoryAxis  style={{tickLabels: {fontSize: 25, padding :5}}}/>
-            <VictoryAxis tickFormat={() => ''}/>
-        </VictoryChart>
-        </div>
+        <Col className="">
+          <VictoryChart>
+              <VictoryBar
+              animate={{
+                  duration: 2000,
+                  onLoad: { duration: 1000 }
+              }}
+              
+              dataComponents={
+                  <Bar events={{onMouseOver: () => console.log("mouseover")}}/>
+              }
+              style={{
+                  data: {fill: ({ datum }) => datum.fill, width: 200, height: 400},
+              }}
+              data={DividentSummary}
+              labels={({datum}) => datum.y}
+              labelComponent={
+                  <VictoryLabel style={{
+                      fontSize: 50, fill:"black"    
+                  }} 
+                  textAnchor="middle" verticalAnchor="end"
+                  dy={0}
+                  />
+              }
+              />
+              <VictoryAxis  style={{tickLabels: {fontSize: 25, padding :5}}}/>
+              <VictoryAxis tickFormat={() => ''}/>
+          </VictoryChart>
+        </Col>
   );
 }
 
