@@ -7,7 +7,8 @@ const defaultState = {
   readPercentage: [{x:1, y: 0},{x:2, y:100}],
   stockPage: "",
   showExtraStock: "", // Decides which stock should render extra information
-  renderData: false
+  renderData: false,
+  splits: []
 }
 
 const transactionsReducer = (state = defaultState, action) => {
@@ -47,6 +48,11 @@ const transactionsReducer = (state = defaultState, action) => {
           }
         ]
       };
+    case 'ADD_SPLITS':
+    return {
+      ...state,
+      splits: action.payload
+    };
     case 'SET_TRANSACTIONS':
       return {
         ...state,
@@ -57,6 +63,7 @@ const transactionsReducer = (state = defaultState, action) => {
         ...state,
         transactions: [],
         summaries: [],
+        splits: [],
         profit: 0,
         sortFilter: "date",
         sortOrder: "DESC",

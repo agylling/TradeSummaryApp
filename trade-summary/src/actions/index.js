@@ -31,6 +31,11 @@ export const addTransaction = (date, account, transactionType, stockname, amount
   }
 );
 
+export const addSplits = (data) => ({
+  type: "ADD_SPLITS",
+  payload: data
+})
+
 export const setTransactions = (data) => ({
   type: "SET_TRANSACTIONS",
   payload: data

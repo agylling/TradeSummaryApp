@@ -6,23 +6,7 @@ import {ShareSummary} from './Stock'
 import {addSummary, setProfit, setSortFilter} from '../actions'
 import {getNewTransactions} from './TransactionList'
 
-export const HandleTransaction = (stock, transaction) => {
-  var constObject = Object.assign({}, transaction);
-  switch(constObject.transactiontype){
-    case 'Köp':
-      stock.addBuy(constObject.amount, constObject.price, constObject.brokerage)
-      break;
-    case 'Sälj':
-      stock.sell(constObject.amount, constObject.price, constObject.brokerage);
-      break;
-    case 'Utdelning':
-      stock.addDividents(constObject.amount, constObject.price);
-      break;
-    default: break;
-  }
-};
-
-const DataSummary = ({transactions, addSummary, setProfit, setFilter, name, renderData, dispatch}) => {
+const DataSummary = ({transactions, addSummary, setProfit, setFilter, name, renderData, splittedShares, dispatch}) => {
   if(renderData === false){
     return (null);
   }
@@ -38,8 +22,50 @@ const DataSummary = ({transactions, addSummary, setProfit, setFilter, name, rend
   var entries = [];
   var totalProfit = 0;
 
+  const handlesplits = () => {
+    // Find the negative transaction in the list either directly above or below
+    
+    if( splittedShares.length%2 === 1){
+      return // handle errors
+    }
+    for(var i = 0; i<splittedShares.length; i += 2){
+      var negative = parseFloat(splittedShares[i].amount) < 0 ? splittedShares[i] : splittedShares[i+1]; 
+      var positive = parseFloat(splittedShares[i].amount) < 0 ? splittedShares[i+1] : splittedShares[i]; 
+
+      var negativeStock = stockMap.get(negative.stockname);
+      var positiveStock = stockMap.get(positive.stockname);
+
+      if(negativeStock != null){
+        var avgBoughtBefore = parseFloat(negativeStock.avgBought.toFixed(2));
+        avgBoughtBefore /= Math.abs(negative.amount);
+        if(positiveStock != null){
+          positiveStock.addBuy(positive.amount, avgBoughtBefore, 0);
+        }
+      }
+    }
+  }
+
+  const HandleTransaction = (stock, transaction, index) => {
+    var constObject = Object.assign({}, transaction);
+    switch(constObject.transactiontype){
+      case 'Köp':
+        stock.addBuy(constObject.amount, constObject.price, constObject.brokerage)
+        break;
+      case 'Sälj':
+        stock.sell(constObject.amount, constObject.price, constObject.brokerage);
+        break;
+      case 'Utdelning':
+        stock.addDividents(constObject.amount, constObject.price);
+        break;
+      case 'Split':
+        break;
+      default: break;
+    }
+  };
+
   const summarize = (transactions) => {
       // Iterate through all transactions = true
+      var index = 0;
       transactions.map(entry => {
         // If the stock doesn't already exist in the database, create new instance
         if(!stockMap.has(entry.stockname)) {
@@ -47,10 +73,13 @@ const DataSummary = ({transactions, addSummary, setProfit, setFilter, name, rend
         }
         var stock = stockMap.get(entry.stockname)
         if(entry.included){
-          HandleTransaction(stock, entry);
+          HandleTransaction(stock, entry, index);
         }
+        index++;
         return null;
       });
+      // Fix the average bought on the splitted stocks
+      handlesplits();
       return null;
   };
 
@@ -112,6 +141,20 @@ DataSummary.propTypes = {
     included: PropTypes.bool.isRequired,
     index: PropTypes.number.isRequired
   }).isRequired).isRequired,
+  splittedShares: PropTypes.arrayOf(PropTypes.shape({
+    date: PropTypes.string.isRequired,
+    account: PropTypes.string.isRequired,
+    transactiontype: PropTypes.string.isRequired,
+    stockname: PropTypes.string.isRequired,
+    amount: PropTypes.string.isRequired,
+    price: PropTypes.string.isRequired,
+    total: PropTypes.string.isRequired,
+    brokerage: PropTypes.string.isRequired,
+    currency: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    included: PropTypes.bool.isRequired,
+    index: PropTypes.number.isRequired
+  }).isRequired).isRequired,
   addSummary: PropTypes.func.isRequired,
   renderData: PropTypes.bool.isRequired
 }
@@ -120,13 +163,14 @@ DataSummary.propTypes = {
 
 const mapStateToProps = state => ({
   transactions: state.TransactionsStore.transactions,
-  renderData: state.TransactionsStore.renderData
+  renderData: state.TransactionsStore.renderData,
+  splittedShares: state.TransactionsStore.splits
 })
 
 const mapDispatchToProps = (dispatch) => ({
   addSummary: stock => dispatch(addSummary(stock)),
   setProfit:  profit => dispatch(setProfit(profit)),
-  setFilter: filter => dispatch(setSortFilter(filter))
+  setFilter: filter => dispatch(setSortFilter(filter)),
 })
 
 export default connect(

@@ -1,6 +1,7 @@
 import React from 'react';
 
 export default class Stock {
+
   constructor(name){
     this.name = name;
     this.amountOwned = 0.0;
@@ -36,6 +37,11 @@ export default class Stock {
 
   addDividents = (amount, divident) => {
     this.divident += parseFloat(amount)*parseFloat(divident);
+  }
+
+  setOwned = (amount) => {
+    // Used when a share is splitted
+    this.amountOwned += parseFloat(amount);
   }
 
   getProfits = () => {

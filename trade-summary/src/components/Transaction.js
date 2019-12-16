@@ -9,12 +9,24 @@ const Transaction = ({
   stockname, amount, price,
   total, brokerage, currency,
   id, included, index
- }) => (
+ }) => {
+
+  const checkbox = () => {
+    if(transactiontype === "Split"){
+      return null;
+    }else{
+      return (
+        <input type="checkbox" checked={included}
+        onClick={() => { include(index, date,included)}}
+        />
+      )
+    }
+  }
+
+  return (
   <tr>
     <td>
-      <input type="checkbox" checked={included}
-        onClick={() => { include(index, date,included)}}
-      />
+      {checkbox()}
     </td>
     <td>  {date}  </td>
     <td>  {account}   </td>
@@ -27,7 +39,8 @@ const Transaction = ({
     <td>  {currency}   </td>
     <td>  {id}   </td>
   </tr>
-)
+  )
+ }
 
 Transaction.propTypes = {
   date: PropTypes.string.isRequired,
