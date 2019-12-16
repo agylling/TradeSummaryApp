@@ -13,10 +13,10 @@ const DataSummary = ({transactions, addSummary, setProfit, setFilter, name, rend
 
   var copyOfTransactions = [...transactions];
   // If we havespecified a particular stock to review summary on, disregard the rest
-  if(name !== "" && name !== "all"){
+  /*if(name !== "" && name !== "all"){
     // Function is exported from TransactionList
     copyOfTransactions = getNewTransactions(copyOfTransactions, name);
-  }
+  } */
   // Tracks the summarized info for each stock
   var stockMap = new Map();
   var entries = [];
@@ -45,7 +45,7 @@ const DataSummary = ({transactions, addSummary, setProfit, setFilter, name, rend
     }
   }
 
-  const HandleTransaction = (stock, transaction, index) => {
+  const HandleTransaction = (stock, transaction) => {
     var constObject = Object.assign({}, transaction);
     switch(constObject.transactiontype){
       case 'Köp':
@@ -65,7 +65,6 @@ const DataSummary = ({transactions, addSummary, setProfit, setFilter, name, rend
 
   const summarize = (transactions) => {
       // Iterate through all transactions = true
-      var index = 0;
       transactions.map(entry => {
         // If the stock doesn't already exist in the database, create new instance
         if(!stockMap.has(entry.stockname)) {
@@ -73,9 +72,8 @@ const DataSummary = ({transactions, addSummary, setProfit, setFilter, name, rend
         }
         var stock = stockMap.get(entry.stockname)
         if(entry.included){
-          HandleTransaction(stock, entry, index);
+          HandleTransaction(stock, entry);
         }
-        index++;
         return null;
       });
       // Fix the average bought on the splitted stocks
@@ -83,9 +81,13 @@ const DataSummary = ({transactions, addSummary, setProfit, setFilter, name, rend
       return null;
   };
 
-  const renderSummary = (entries) => {
+  const renderSummary = () => {
     for(var entry of stockMap.values()){
-      entries.push(entry);
+      if(entry.name === name){
+        entries.push(entry);
+      }else if(name === null || name === "" || name === "all"){
+        entries.push(entry);
+      }
     }
     return(
       entries.map(entry => {
@@ -119,7 +121,7 @@ const DataSummary = ({transactions, addSummary, setProfit, setFilter, name, rend
           </tr>
         </thead>
         <tbody>
-         {renderSummary(entries)}
+         {renderSummary()}
         </tbody>
       </table>
     </div>
