@@ -1,21 +1,23 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import {ResponsiveContainer,CartesianGrid, XAxis, YAxis, Tooltip, Legend, Brush, BarChart, Bar} from 'recharts';
-import {Col } from 'react-bootstrap';
+import {ResponsiveContainer, Label, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Brush, BarChart, Bar} from 'recharts';
+import {Col,Container } from 'react-bootstrap';
 
 const InvestedMoney = ({transactions,renderData, dispatch}) => {
   if(renderData === false){
     return (null);
   }
   return (
-    <Col lg="8">
+    <Container>
       <ResponsiveContainer width="100%" aspect={4/3}>
         <BarChart data={transactions}
           margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-          <XAxis dataKey="x" />
+          <XAxis dataKey="x">
+            <Label value="Transactions over time" offset={0} position="insideBottom" />
+          </XAxis>
           <YAxis />
-          <Brush />
+          <Brush/>
           <Legend verticalAlign="top" height={36}/>
           <CartesianGrid strokeDasharray="3 3" />
           <Tooltip />
@@ -24,7 +26,7 @@ const InvestedMoney = ({transactions,renderData, dispatch}) => {
         </BarChart>
       </ResponsiveContainer>
       <br></br>
-    </Col>
+    </Container>
   );
 }
 

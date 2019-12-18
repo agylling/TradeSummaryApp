@@ -19,9 +19,14 @@ const OverallSummary = ({summaries, renderData, dispatch}) => {
   averageTrade = averageTrade/totalNonZeroTrades;
   var averageColor = averageTrade > 0 ? "#4CAF50" : "#BB1313";
   return (
-    <Col className="centering overAllChart">
-      <ResponsiveContainer width="100%" aspect={4/5}>
-        <BarChart data={summaries} layout="vertical">
+    <Container>
+      <ResponsiveContainer width="100%" aspect={4/3}>
+        <BarChart 
+          data={summaries} 
+          layout="vertical"
+          barCategoryGap={1}
+          barGap={1}
+        >
           <XAxis type="number">
             <Label value="Total" offset={0} position="insideBottom" />
           </XAxis>
@@ -35,7 +40,7 @@ const OverallSummary = ({summaries, renderData, dispatch}) => {
         </BarChart>
       </ResponsiveContainer>
       <br></br>
-    </Col>
+    </Container>
   );
 }
 

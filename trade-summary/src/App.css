@@ -54,6 +54,27 @@ tr:hover {background-color: #ddd;}
 .TotalProfit{
   font-size: 3em;
 }
+
+.inputDiv{
+  background-color: rgba(107, 235, 114, 0.575);
+  width: 15vw;
+  height: 12vh;
+  border-radius: 0.6rem;
+  border: 0.1rem dashed rgba(0, 0, 0, 0.575);
+}
+.inputButton{
+  opacity: 0;
+  width: 15vw;
+  height: 12vh;
+  border-radius: 0.6rem;
+}
+
+.fileText{
+  font-size: 2rm;
+  position: relative;
+  top: -8vh;
+}
+
 /*******************/
 
 /***** GRAPHS ******/

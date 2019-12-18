@@ -17,20 +17,18 @@ const Home = () => {
           </Col>
         </Row>
         <Row>
-          <Col lg={8} md={8} sd={8}>
+          <Col>
             <OverallSummary/>
           </Col>
-          <Col className={"centering"}>
-            <Profit/>
+          <Col >
+            <InvestedMoney/>          
           </Col>
         </Row>
       </Container>
       <Container>
-        <Row >
-          <Col lg={10} md={10} sd={10}>
-            <InvestedMoney/>          
+          <Col className={"centering"}>
+            <Profit/>
           </Col>
-        </Row>
       </Container>
       <Container>  
         <Row>

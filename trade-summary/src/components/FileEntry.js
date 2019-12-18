@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { addTransaction, removeTransactions, setPercentage, renderData, addTransactions, addSplits } from '../actions'
 import TransactionList from './TransactionList';
+import { Container, Row } from 'react-bootstrap';
 
 const fileReader = new FileReader();
 
@@ -69,14 +70,19 @@ const FileEntry = ({addTransaction, removeTransactions, setPercentage, renderDat
   }
 
   return(
-    <div>
-      <input type='file'
-             id='file'
-             className='input-file'
-             accept='.csv'
-             onChange={e => handleFileChosen(e.target.files[0])}
-      />
-    </div>
+    <Container className="">
+      <div className="centering inputDiv">
+        <Row>
+          <input type='file'
+                id='file'
+                className='inputButton'
+                accept='.csv'
+                onChange={e => handleFileChosen(e.target.files[0])}
+          />
+          <p className="centering fileText"> .csv File Here</p>
+       </Row>
+      </div>
+    </Container>
   )
 }
 
