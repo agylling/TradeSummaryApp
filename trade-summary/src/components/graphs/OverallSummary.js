@@ -32,7 +32,7 @@ const OverallSummary = ({summaries, renderData, dispatch}) => {
           <YAxis dataKey="x" type="category" tick={false} hide={false}>
             <Label value="Stock" offset={0} position="insideLeft" />
           </YAxis>
-          <Brush/>
+          {summaries.length > 0 && <Brush />}
           <CartesianGrid strokeDasharray="3 3" />
           <Tooltip />
           <Bar name="profit" maxBarSize={10} dataKey="y"/>

@@ -17,7 +17,7 @@ const InvestedMoney = ({transactions,renderData, dispatch}) => {
             <Label value="Transactions over time" offset={0} position="insideBottom" />
           </XAxis>
           <YAxis />
-          <Brush/>
+          {transactions.length > 0 && <Brush />}
           <Legend verticalAlign="top" height={36}/>
           <CartesianGrid strokeDasharray="3 3" />
           <Tooltip />
