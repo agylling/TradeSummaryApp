@@ -1,16 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import {VictoryChart, VictoryLegend, VictoryLine, VictoryLabel, VictoryAxis, VictoryScatter, VictoryTooltip} from 'victory'
-import {ScatterChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Scatter} from 'recharts';
-import {Col } from 'react-bootstrap';
+import {ScatterChart,ResponsiveContainer, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Scatter} from 'recharts';
+import {Container } from 'react-bootstrap';
 
 const StockBuySell = ({transactions, stockPage, dispatch}) => {
 
   return (
-        <Col lg="8">
-          <ScatterChart width={730} height={450}
-           margin={{ top: 20, right: 20, bottom: 10, left: 10 }}>
+        <Container>
+          <ResponsiveContainer width="100%" aspect={4/3}>
+          <ScatterChart>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="x" name="index" domain={['dataMin', 'dataMax']}/>
             <YAxis dataKey="y" name="price"/>
@@ -19,25 +18,12 @@ const StockBuySell = ({transactions, stockPage, dispatch}) => {
             <Scatter name="Buy / Dividents" data={transactions.buys} fill="#4CAF50" />
             <Scatter name="Sell" data={transactions.sells} fill="#BB1313" />
           </ScatterChart>
-        </Col>
+          </ResponsiveContainer>
+        </Container>
   );
 }
 
 StockBuySell.propTypes = {
-  transactions: PropTypes.arrayOf(PropTypes.shape({
-    date: PropTypes.string.isRequired,
-    account: PropTypes.string.isRequired,
-    transactiontype: PropTypes.string.isRequired,
-    stockname: PropTypes.string.isRequired,
-    amount: PropTypes.string.isRequired,
-    price: PropTypes.string.isRequired,
-    total: PropTypes.string.isRequired,
-    brokerage: PropTypes.string.isRequired,
-    currency: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
-    included: PropTypes.bool.isRequired,
-    index: PropTypes.number.isRequired
-  }).isRequired).isRequired,
   stockPage: PropTypes.string.isRequired
 }
 

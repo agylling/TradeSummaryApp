@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import {AreaChart,Label, ResponsiveContainer, CartesianGrid, XAxis, YAxis, Tooltip, Legend, linearGradient, Area, Brush, Line, BarChart, Bar} from 'recharts';
-import { Container, Col } from 'react-bootstrap'
+import {Label, ResponsiveContainer, CartesianGrid, XAxis, YAxis, Tooltip, Brush, BarChart, Bar} from 'recharts';
+import { Container } from 'react-bootstrap'
 
 const OverallSummary = ({summaries, renderData, dispatch}) => {
   if(renderData === false){
@@ -17,7 +17,6 @@ const OverallSummary = ({summaries, renderData, dispatch}) => {
     }
   }
   averageTrade = averageTrade/totalNonZeroTrades;
-  var averageColor = averageTrade > 0 ? "#4CAF50" : "#BB1313";
   return (
     <Container>
       <ResponsiveContainer width="100%" aspect={4/3}>
@@ -45,18 +44,6 @@ const OverallSummary = ({summaries, renderData, dispatch}) => {
 }
 
 OverallSummary.propTypes = {
-  summaries: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    amountOwned: PropTypes.number.isRequired,
-    paid: PropTypes.number.isRequired,
-    sharesBought: PropTypes.number.isRequired,
-    sold: PropTypes.number.isRequired,
-    sharesSold: PropTypes.number.isRequired,
-    avgBought: PropTypes.number.isRequired,
-    divident: PropTypes.number.isRequired,
-    profit: PropTypes.number.isRequired,
-    brokerage: PropTypes.number.isRequired
-  }).isRequired).isRequired,
   renderData: PropTypes.bool.isRequired
 }
 
@@ -71,7 +58,6 @@ const getSummaries = (summaries) =>{
       }
     })
   var newSummaries = [];
-  var index = 0;
   for(var entry of tmp){
     if(entry.profit === 0){
       continue
@@ -82,7 +68,6 @@ const getSummaries = (summaries) =>{
     }
     newSummaries.push({x: entry.name, y: Math.abs(entry.profit), fill: fillColor})
     entry = null;
-    index++;
   }
   tmp = null;
   return newSummaries;

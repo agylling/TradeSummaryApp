@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { addTransaction, removeTransactions, setPercentage, renderData, addTransactions, addSplits } from '../actions'
-import TransactionList from './TransactionList';
 import { Container, Row } from 'react-bootstrap';
 
 const fileReader = new FileReader();

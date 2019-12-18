@@ -1,8 +1,8 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
 import {ResponsiveContainer, Label, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Brush, BarChart, Bar} from 'recharts';
-import {Col,Container } from 'react-bootstrap';
+import {Container } from 'react-bootstrap';
 
 const InvestedMoney = ({transactions,renderData, dispatch}) => {
   if(renderData === false){

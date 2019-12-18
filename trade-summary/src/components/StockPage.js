@@ -15,7 +15,7 @@ const StockPage = ({name, dispatch}) => {
       <Row>
         <Col lg={5} md={12} sm={12}> 
           <Row><Col> <DataSummary name={name}/></Col></Row>
-          <Row> <StockBuySell/> </Row>
+          <Row> <Col><StockBuySell/></Col> </Row>
           <Row > <DividentBar/> </Row>
         </Col>
         <Col lg={7} md={12} sm={12}> 

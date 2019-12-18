@@ -95,7 +95,7 @@ const DataSummary = ({transactions, addSummary, setProfit, setFilter, name, rend
           entry.roundDecimals();
           totalProfit += parseFloat(entry.returnProfit())
           setProfit(totalProfit)
-          return <ShareSummary {...entry}/>
+          return <ShareSummary key={entry.name} {...entry}/>
       })
     )
   };

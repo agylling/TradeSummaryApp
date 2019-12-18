@@ -17,7 +17,7 @@ Profit.propTypes = {
 }
 
 const mapStateToProps = state => ({
-  profit: (state.TransactionsStore.profit.toFixed(2)),
+  profit: parseFloat(state.TransactionsStore.profit.toFixed(2)),
   renderData: state.TransactionsStore.renderData
 })
 

@@ -2,12 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import {VictoryChart, VictoryBar, Bar, VictoryLabel, VictoryAxis} from 'victory'
-import { Container, Col } from 'react-bootstrap'
+import { Container } from 'react-bootstrap'
 
 const DividentBar = ({transactions, dividents, dispatch}) => {
   var DividentSummary=[{x: "dividents",y: dividents, fill: "#4CAF50"}];
   return (
-        <Col className="">
+        <Container className="">
           <VictoryChart>
               <VictoryBar
               animate={{
@@ -35,7 +35,7 @@ const DividentBar = ({transactions, dividents, dispatch}) => {
               <VictoryAxis  style={{tickLabels: {fontSize: 25, padding :5}}}/>
               <VictoryAxis tickFormat={() => ''}/>
           </VictoryChart>
-        </Col>
+        </Container>
   );
 }
 
@@ -54,8 +54,7 @@ DividentBar.propTypes = {
       included: PropTypes.bool.isRequired,
       index: PropTypes.number.isRequired
     }).isRequired).isRequired,
-    dividents: PropTypes.number.isRequired,
-    addSummary: PropTypes.func.isRequired
+    dividents: PropTypes.number.isRequired
   }
 
 const getTransactions = (transactions, name) =>{

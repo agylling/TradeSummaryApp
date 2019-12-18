@@ -1,33 +1,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import {FaCoins, FaEllipsisH, FaAngleUp, FaAngleDown, FaListUl} from 'react-icons/fa'
-import {setStockpage, showExtraStockInfo, renderData} from '../actions'
+import {FaCoins, FaAngleUp, FaAngleDown, FaListUl} from 'react-icons/fa'
+import {setStockpage, showExtraStockInfo} from '../actions'
 import {Link} from 'react-router-dom'
 import { Container, Row, Col, } from 'react-bootstrap';
-import TransactionList from './TransactionList'
-
-const renderTransactions = (name) => {
-
-  return (
-    <Row className={"transactionList"}>
-      <Col>
-       <TransactionList name={name}/>
-      </Col>
-    </Row>
-  )
-}
 
 const extraInfo = (entry, showExtraStock) => {
   if(showExtraStock === entry.name){
     return (
-      <Container>
-        <Row>
-          <Col> <p> B: {entry.sharesBought} @ {entry.avgBought} </p> </Col>
-          <Col> <p> S: {entry.sharesSold} @ {parseFloat(parseFloat(entry.sold)/parseFloat(entry.sharesSold)).toFixed(2)} </p> </Col>
-          <Col> <p> Dividents: {entry.divident} </p> </Col>
-        </Row>
-      </Container>
+      <Row>
+        <Col> <p> B: {entry.sharesBought} @ {entry.avgBought} </p> </Col>
+        <Col> <p> S: {entry.sharesSold} @ {parseFloat(parseFloat(entry.sold)/parseFloat(entry.sharesSold)).toFixed(2)} </p> </Col>
+        <Col> <p> Dividents: {entry.divident} </p> </Col>
+      </Row>
     )
   }else{
     return null
@@ -44,7 +30,7 @@ const renderWindows = (entries, setStockpage, setShowExtraStock, showExtraStock)
       var divClass =  parseFloat(entry.profit) >= 0 ? "SumWinProfit" : "SumLossProfit";
       var pColor = parseFloat(entry.profit) >= 0 ? "greenText" : "redText";
         return (
-          <Container className={"centering rubricArea inlineBlock StockSummaryWindow " + divClass}>
+          <Container key={entry.name} className={"centering rubricArea inlineBlock StockSummaryWindow " + divClass}>
             <Row>
               <Col> <p> {entry.name} </p> </Col>
               <Col>
