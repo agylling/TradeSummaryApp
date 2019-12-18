@@ -11,10 +11,12 @@ import TransactionList from './TransactionList'
 const StockPage = ({name, dispatch}) => {
   return(
     <Container className={"fullScreenWidth"}>
+
       <Row>
         <Col lg={5} md={12} sm={12}> 
           <Row><Col> <DataSummary name={name}/></Col></Row>
-          <Row><StockBuySell/> <DividentBar/></Row>
+          <Row> <StockBuySell/> </Row>
+          <Row > <DividentBar/> </Row>
         </Col>
         <Col lg={7} md={12} sm={12}> 
           <TransactionList name={name}/>

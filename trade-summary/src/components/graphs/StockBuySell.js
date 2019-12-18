@@ -2,78 +2,23 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import {VictoryChart, VictoryLegend, VictoryLine, VictoryLabel, VictoryAxis, VictoryScatter, VictoryTooltip} from 'victory'
+import {ScatterChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Scatter} from 'recharts';
 import {Col } from 'react-bootstrap';
 
 const StockBuySell = ({transactions, stockPage, dispatch}) => {
+
   return (
         <Col lg="8">
-          <VictoryChart>
-          <VictoryLegend x={170} y={10}
-              centerTitle
-              orientation="horizontal"
-              gutter={20}
-              style={{ border: { stroke: "black" }, title: {fontSize: 20 } }}
-              data={[
-                { name: "Buy", symbol: { fill: "#4CAF50" } },
-                { name: "Sell", symbol: { fill: "#BB1313" } }
-              ]}
-            />
-            <VictoryScatter
-                    data={transactions.all}
-                    style={{
-                      data: {fill: ({ datum }) => datum.fill},
-                      labels: {fill: "black"}
-                    }}
-                    labelComponent={
-                      <VictoryTooltip
-                        style={{
-                           fontSize: 5,
-                        }}
-                        constrainToVisibleArea={true}
-                        pointerOrientation="left"
-                        cornerRadius={0}
-                        centerOffset={{x:0, y:0}}
-                        labelComponent={
-                          <VictoryLabel
-                             style={{
-                                fontSize: 7,
-                             }}
-                             angle={0}
-                             verticalAnchor="middle"
-                             textAnchor="middle"
-                             dx={0}
-                             dy={0}
-                             text={({datum}) => datum.label}
-                           />
-                        }
-                      />
-                    }
-              />
-              <VictoryLine
-                data={transactions.buy}
-                style={
-                  {
-                    data: {stroke: "#4CAF50"}
-                  }
-                }
-              />
-              <VictoryLine
-                data={transactions.sell}
-                style={
-                  {
-                    data: {stroke: "#BB1313"}
-                  }
-                }
-              />
-              <VictoryAxis dependentAxis
-                orientation="left"
-              />
-              <VictoryAxis
-                orientation="bottom"
-                tickCount={2}
-                tickValues={[transactions.all[0], transactions.all[transactions.length-1]]}
-              />
-          </VictoryChart>
+          <ScatterChart width={730} height={450}
+           margin={{ top: 20, right: 20, bottom: 10, left: 10 }}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="x" name="index" domain={['dataMin', 'dataMax']}/>
+            <YAxis dataKey="y" name="price"/>
+            <Tooltip />
+            <Legend />
+            <Scatter name="Buy / Dividents" data={transactions.buys} fill="#4CAF50" />
+            <Scatter name="Sell" data={transactions.sells} fill="#BB1313" />
+          </ScatterChart>
         </Col>
   );
 }
@@ -97,31 +42,20 @@ StockBuySell.propTypes = {
 }
 
 const getTransactions = (transactions, stockPage) => {
-  var stockTransactions = [];
-  var buyTransactions = [];
-  var sellTransactions = [];
+  var S = [];
+  var B = [];
   for(var entry of transactions){
     if(entry.stockname === stockPage && entry.included === true){
-      var fillColor = entry.transactiontype === ("Köp" || "Utdelning") ? "#4CAF50" : "#BB1313"
-      stockTransactions.push({x: entry.date, y: parseFloat(entry.price), label: JSON.stringify(entry,null,"\n"), fill: fillColor, index: entry.index });
-      if(fillColor === "#4CAF50"){
-        buyTransactions.push({x: entry.date, y: parseFloat(entry.price), fill: fillColor, index: entry.index})
+      if(entry.transactiontype === "Sälj"){
+        S.push({x: entry.date, y: parseFloat(entry.price), index: entry.index})
       }else{
-        sellTransactions.push({x: entry.date, y: parseFloat(entry.price), fill: fillColor, index: entry.index})
+        B.push({x: entry.date, y: parseFloat(entry.price), index: entry.index})
       }
     }
   }
   // TODO: Sort by Date Ascending order. Doesnt work yet, think it needs to compare date object not string
-  stockTransactions.sort((a,b) => {
-      if(Date.parse(a.x) < Date.parse(b.x)){
-        return -1;
-      }else if(Date.parse(a.x) > Date.parse(b.x)){
-        return 1;
-      }else{
-        return 0;
-      }
-  })
-  return {all: stockTransactions, buy: buyTransactions, sell: sellTransactions};
+ 
+  return {buys: B, sells: S};
 }
 
 

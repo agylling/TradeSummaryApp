@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import {VictoryChart, VictoryBar, Bar, VictoryLabel, VictoryAxis, VictoryTooltip} from 'victory'
-import { Container } from 'react-bootstrap'
+import {AreaChart,Label, ResponsiveContainer, CartesianGrid, XAxis, YAxis, Tooltip, Legend, linearGradient, Area, Brush, Line, BarChart, Bar} from 'recharts';
+import { Container, Col } from 'react-bootstrap'
 
 const OverallSummary = ({summaries, renderData, dispatch}) => {
   if(renderData === false){
@@ -19,60 +19,23 @@ const OverallSummary = ({summaries, renderData, dispatch}) => {
   averageTrade = averageTrade/totalNonZeroTrades;
   var averageColor = averageTrade > 0 ? "#4CAF50" : "#BB1313";
   return (
-    <Container className="centering overAllChart">
-      <VictoryChart
-        domainPadding={{ x: 10 }}
-      >
-        <VictoryBar horizontal
-          animate={{
-            duration: 2000,
-            onLoad: { duration: 1000 }
-          }}
-          barRatio={0.8}
-          dataComponents={
-            <Bar events={{onMouseOver: () => console.log("mouseover")}}/>
-          }
-          style={{
-            data: {fill: ({ datum }) => datum.fill},
-            labels: {fill: "black"}
-          }}
-          data={summaries}
-          labelComponent={
-            <VictoryTooltip
-              style={{
-                 fontSize: 5,
-              }}
-              constrainToVisibleArea={false}
-              pointerOrientation="left"
-              cornerRadius={0}
-              centerOffset={{x:0, y:-10}}
-              flyoutWidth={({datum}) => datum.label.length*5+30}
-              labelComponent={
-                <VictoryLabel
-                   style={{
-                      fontSize: 7,
-                   }}
-                   angle={0}
-                   verticalAnchor="middle"
-                   textAnchor="middle"
-                   dx={0}
-                   dy={0}
-                   text={({datum}) => datum.label + " : " + datum.y }
-                 />
-              }
-            />
-          }
-        />
-        <VictoryAxis dependentAxis
-          style={{
-             tickLabels: {fontSize: 10}
-          }}
-        />
-        <VictoryAxis
-          style={{ tickLabels: {fill: "none"}}}
-        />
-      </VictoryChart>
-    </Container>
+    <Col className="centering overAllChart">
+      <ResponsiveContainer width="100%" aspect={4/5}>
+        <BarChart data={summaries} layout="vertical">
+          <XAxis type="number">
+            <Label value="Total" offset={0} position="insideBottom" />
+          </XAxis>
+          <YAxis dataKey="x" type="category" tick={false} hide={false}>
+            <Label value="Stock" offset={0} position="insideLeft" />
+          </YAxis>
+          <Brush/>
+          <CartesianGrid strokeDasharray="3 3" />
+          <Tooltip />
+          <Bar name="profit" maxBarSize={10} dataKey="y"/>
+        </BarChart>
+      </ResponsiveContainer>
+      <br></br>
+    </Col>
   );
 }
 
@@ -112,7 +75,7 @@ const getSummaries = (summaries) =>{
     if(entry.profit < 0) {
       fillColor = "#BB1313"
     }
-    newSummaries.push({x: index, y: Math.abs(entry.profit), fill: fillColor, label: entry.name})
+    newSummaries.push({x: entry.name, y: Math.abs(entry.profit), fill: fillColor})
     entry = null;
     index++;
   }
