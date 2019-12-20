@@ -2,15 +2,27 @@ import React from 'react'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
 import {ResponsiveContainer, Label, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Brush, BarChart, Bar} from 'recharts';
-import {Container } from 'react-bootstrap';
+import {Container, Row, Col } from 'react-bootstrap';
 
 const InvestedMoney = ({transactions,renderData, dispatch}) => {
   if(renderData === false){
     return (null);
   }
+  var meanDeposited = 0;
+  var countDeposits = 0;
+  for(var entry of transactions){
+    if(entry.deposited){
+      meanDeposited += parseFloat(entry.deposited);
+    }else if(entry.witrewed){
+      meanDeposited += parseFloat(entry.deposited);
+    }
+    countDeposits++;
+  }
+  meanDeposited /= countDeposits;
   return (
     <Container>
-      <ResponsiveContainer width="100%" aspect={4/3}>
+      <Row>
+        <ResponsiveContainer width="100%" aspect={4/3}>
         <BarChart data={transactions}
           margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
           <XAxis dataKey="x">
@@ -25,7 +37,11 @@ const InvestedMoney = ({transactions,renderData, dispatch}) => {
           <Bar maxBarSize={10} name="Deposited"  dataKey="deposited" fill="#4CAF50" />
         </BarChart>
       </ResponsiveContainer>
-      <br></br>
+      </Row>
+      <Row>
+        <br></br>
+        <Col><p className="GraphSummaries"> Mean Deposits: {meanDeposited.toFixed(2)}  </p></Col>
+      </Row>
     </Container>
   );
 }

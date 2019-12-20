@@ -55,6 +55,23 @@ tr:hover {background-color: #ddd;}
   font-size: 3em;
 }
 
+.loss{
+  color: #BB1313;
+}
+
+.profit{
+  color: #4CAF50;
+}
+
+.GraphSummaries{
+  font-size: 2em;
+  text-align: center;
+}
+
+.underLine{
+  text-decoration: underline;
+}
+
 .inputDiv{
   background-color: rgba(107, 235, 114, 0.575);
   width: 15vw;
@@ -67,6 +84,7 @@ tr:hover {background-color: #ddd;}
   width: 15vw;
   height: 12vh;
   border-radius: 0.6rem;
+  z-index: 10;
 }
 
 .fileText{

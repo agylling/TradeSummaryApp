@@ -9,15 +9,15 @@ const StockBuySell = ({transactions, stockPage, dispatch}) => {
   return (
         <Container>
           <ResponsiveContainer width="100%" aspect={4/3}>
-          <ScatterChart>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="x" name="index" domain={['dataMin', 'dataMax']}/>
-            <YAxis dataKey="y" name="price"/>
-            <Tooltip />
-            <Legend />
-            <Scatter name="Buy / Dividents" data={transactions.buys} fill="#4CAF50" />
-            <Scatter name="Sell" data={transactions.sells} fill="#BB1313" />
-          </ScatterChart>
+            <ScatterChart>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="x" name="index" domain={['dataMin', 'dataMax']}/>
+              <YAxis dataKey="y" name="price"/>
+              <Tooltip />
+              <Legend />
+              <Scatter name="Buy / Dividents" data={transactions.buys} fill="#4CAF50" />
+              <Scatter name="Sell" data={transactions.sells} fill="#BB1313" />
+            </ScatterChart>
           </ResponsiveContainer>
         </Container>
   );

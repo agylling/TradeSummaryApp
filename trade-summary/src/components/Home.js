@@ -6,10 +6,16 @@ import Profit from './Profit'
 import DataSummary from './DataSummary'
 import {Container, Row, Col} from 'react-bootstrap'
 import InvestedMoney from './graphs/InvestedMoney'
+import PieSummary from './graphs/PieSummary'
 
 const Home = () => {
   return(
     <Container>
+      <Container>
+        <Col className={"centering"}>
+          <Profit/>
+        </Col>
+      </Container>
       <Container>
         <Row>
           <Col>
@@ -20,15 +26,20 @@ const Home = () => {
           <Col>
             <OverallSummary/>
           </Col>
-          <Col >
+          <Col>
             <InvestedMoney/>          
           </Col>
         </Row>
-      </Container>
-      <Container>
-          <Col className={"centering"}>
-            <Profit/>
+        <Row>
+          <Col>
+            <p className="GraphSummaries underLine"> Paid </p>
+            <PieSummary dataKey={"paid"}/>
           </Col>
+          <Col>
+            <p className="GraphSummaries underLine"> Sold </p>
+            <PieSummary dataKey={"sold"}/>
+          </Col>
+        </Row>
       </Container>
       <Container>  
         <Row>
