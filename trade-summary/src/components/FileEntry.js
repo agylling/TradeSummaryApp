@@ -78,7 +78,7 @@ const FileEntry = ({addTransaction, removeTransactions, setPercentage, renderDat
                 accept='.csv'
                 onChange={e => handleFileChosen(e.target.files[0])}
           />
-          <p className="centering fileText"> .csv File Here</p>
+          <p className="centering fileText"> Click: enter .csv file here</p>
        </Row>
       </div>
     </Container>
