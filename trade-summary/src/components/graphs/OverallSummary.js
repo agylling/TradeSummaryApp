@@ -61,11 +61,11 @@ const OverallSummary = ({summaries, renderData, dispatch}) => {
       </Row>
       <Row>
         <Col>
-          <Row><p className="GraphSummaries loss"> Total Losses: {totalLosses}  </p></Row>
+          <Row><p className="GraphSummaries loss"> #Losses: {totalLosses}  </p></Row>
           <Row><p className="GraphSummaries loss"> Mean Loss: {averageNegative.toFixed(2)}  </p></Row>
         </Col>
         <Col>
-          <Row><p className="GraphSummaries profit"> Total Profits: {totalProfits}  </p> </Row>
+          <Row><p className="GraphSummaries profit"> #Profits: {totalProfits}  </p> </Row>
           <Row><p className="GraphSummaries profit"> Mean Profit: {averagePositive.toFixed(2)}  </p> </Row>
         </Col>
       </Row>
