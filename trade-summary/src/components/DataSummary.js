@@ -6,7 +6,7 @@ import {ShareSummary} from './Stock'
 import {addSummary, setProfit, setSortFilter} from '../actions'
 import {getNewTransactions} from './TransactionList'
 
-const DataSummary = ({transactions, addSummary, setProfit, setFilter, name, renderData, splittedShares, dispatch}) => {
+const DataSummary = ({transactions, addSummary, setProfit, setFilter, name, renderData, splittedShares, home, dispatch}) => {
   if(renderData === false){
     return (null);
   }
@@ -88,38 +88,54 @@ const DataSummary = ({transactions, addSummary, setProfit, setFilter, name, rend
       }else if(name === null || name === "" || name === "all"){
         entries.push(entry);
       }
+      entry.getProfits();
+      entry.roundDecimals();
+      totalProfit += parseFloat(entry.returnProfit())
+      setProfit(totalProfit)
     }
+    entries = entries.sort((a,b) =>{
+      return b["profit"] - a["profit"];
+    }) 
     return(
       entries.map(entry => {
-          entry.getProfits();
-          entry.roundDecimals();
-          totalProfit += parseFloat(entry.returnProfit())
-          setProfit(totalProfit)
+          if(home === true){
+            return null
+          }
           return <ShareSummary key={entry.name} {...entry}/>
       })
     )
   };
 
+  const thead = () => {
+    // If we are on front page, dont render the tables, but needed to calculate all the data for redux
+    if(home === true){
+      return null;
+    }else{
+      return(
+        <thead>
+        <tr>
+          <th onClick={() => setFilter("stockname")}>Name</th>
+          <th>Bought</th>
+          <th>@avg</th>
+          <th>Total</th>
+          <th>Sold</th>
+          <th>@avg</th>
+          <th>Total</th>
+          <th>Dividents</th>
+          <th>Brokerage</th>
+          <th>Profit</th>
+        </tr>
+      </thead>
+      )
+    }
+  }
   return(
     stockMap.clear(),
     summarize(copyOfTransactions),
     addSummary(entries),
     <div className="centering">
       <table className="centering">
-        <thead>
-          <tr>
-            <th onClick={() => setFilter("stockname")}>Name</th>
-            <th>Bought</th>
-            <th>@avg</th>
-            <th>Total</th>
-            <th>Sold</th>
-            <th>@avg</th>
-            <th>Total</th>
-            <th>Dividents</th>
-            <th>Brokerage</th>
-            <th>Profit</th>
-          </tr>
-        </thead>
+          {thead()}
         <tbody>
          {renderSummary()}
         </tbody>

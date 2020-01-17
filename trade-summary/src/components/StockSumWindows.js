@@ -83,13 +83,10 @@ StockSummaryWindows.propTypes = {
 const getSummaries = (summaries) =>{
   return (
     [...summaries].sort((a,b) =>{
-      if(parseFloat(a["profit"]) < parseFloat(b["profit"])){
-        return 1;
-      }else if(parseFloat(a["profit"]) > parseFloat(b["profit"])){
-        return -1;
-      }else{
-        return 0;
-      }
+      // To list large losses higher up in the list, want the absolute values
+      var aProf = Math.abs(a["profit"]);
+      var bProf = Math.abs(b["profit"]);
+      return bProf - aProf;
   })
   )
 }

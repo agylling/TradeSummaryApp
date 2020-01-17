@@ -12,34 +12,14 @@ const Home = () => {
   return(
     <Container>
       <Container>
-        <Col className={"centering"}>
-          <Profit/>
-        </Col>
-      </Container>
-      <Container>
         <Row>
           <Col>
             <FileEntry/>
           </Col>
         </Row>
-        <Row>
-          <Col>
-            <OverallSummary/>
-          </Col>
-          <Col>
-            <InvestedMoney/>          
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <p className="GraphSummaries underLine"> Paid </p>
-            <PieSummary dataKey={"paid"}/>
-          </Col>
-          <Col>
-            <p className="GraphSummaries underLine"> Sold </p>
-            <PieSummary dataKey={"sold"}/>
-          </Col>
-        </Row>
+        <Col className={"centering"}>
+          <Profit/>
+        </Col>
       </Container>
       <Container>  
         <Row>
@@ -49,7 +29,7 @@ const Home = () => {
         </Row>
       </Container>
       <Container>
-        <DataSummary name="all"/>
+        <DataSummary name="all" home={true}/>
       </Container>
     </Container>
   )

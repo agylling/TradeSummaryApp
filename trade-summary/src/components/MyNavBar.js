@@ -11,6 +11,7 @@ import DataTables from './DataTables'
 import Home from './Home'
 import StockPage from './StockPage'
 import { setStockpage } from '../actions'
+import Graphs from './Graphs'
 
 const MyNavBar = ({setStockpage, summaries, dispatch}) => {
 
@@ -28,12 +29,13 @@ const MyNavBar = ({setStockpage, summaries, dispatch}) => {
   return(
     <BrowserRouter>
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-        <Navbar.Brand href="/">Trade Summary</Navbar.Brand>
+        <Navbar.Brand>Trade Summary</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto navCenter">
             <Link className="navCenter" to="/Home">Home</Link>
             <Link className="navCenter" to="/DataTables">Data Tables</Link>
+            <Link className="navCenter" to="/Graphs">Graphs</Link>
           </Nav>
           <Nav>
             <Link className="navCenter" to="#About">About</Link>
@@ -42,9 +44,11 @@ const MyNavBar = ({setStockpage, summaries, dispatch}) => {
       </Navbar>
       <Switch>
         <Route exact from="/" component={Home} />
+        <Route exact path="/TradeSummaryApp" component={Home} />
         <Route exact path="/Home" component={Home} />
         <Route path="/DataTables" component={DataTables} />
         <Route path="/StockPage" component={StockPage} />
+        <Route path="/Graphs" component={Graphs} />
       </Switch>
     </BrowserRouter>
   )

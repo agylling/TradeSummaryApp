@@ -45,7 +45,6 @@ const FileEntry = ({addTransaction, removeTransactions, setPercentage, renderDat
         }
         if(entry[2] === "Sälj" && new Date(entry[0]) - uniqueCompanies.get(entry[3]).date > 0){
           uniqueCompanies.set(entry[3], {index: (i-1), date: new Date(entry[0])});
-          console.log(entry[3] + " " + uniqueCompanies.get(entry[3]))
         }
         stockMap.get(entry[3]).push(
           {

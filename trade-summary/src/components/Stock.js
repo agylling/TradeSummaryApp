@@ -53,7 +53,7 @@ export default class Stock {
     return this.profit;
   }
 
-  printInformation = () => {
+  printInformation = (keyIndex) => {
     if(this.profit === 0){
       return null;
     }

@@ -80,9 +80,6 @@ const PieSummary = ({summaries,renderData, dataKey, dispatch}) => {
                 </PieChart>
         </ResponsiveContainer>
       </Row>
-        <Row>
-          <RenderInfo/>
-        </Row>
     </Container>
   );
 }
@@ -104,8 +101,28 @@ PieSummary.propTypes = {
     renderData: PropTypes.bool.isRequired
 }
 
+const getSummaries = (summaries) => {
+  var newsummaries = [...summaries].sort((a,b) =>{
+    if(parseFloat(a["profit"]) < parseFloat(b["profit"])){
+      return 1;
+    }else if(parseFloat(a["profit"]) > parseFloat(b["profit"])){
+      return -1;
+    }else{
+      return 0;
+    }
+  }) 
+  var tmp = [];
+  for(var i = 0; i<summaries.length; i++){
+    if(i > 9){
+      break;
+    }
+    tmp.push(newsummaries[i]);
+  }
+  return tmp;
+}
+
 const mapStateToProps = (state) => ({
-summaries: state.TransactionsStore.summaries,
+summaries: getSummaries(state.TransactionsStore.summaries),
 renderData: state.TransactionsStore.renderData
 })
 
