@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "23da83f4b51a733c64db408000e66b95",
+    "revision": "5b8c69c43f4bbf43deff56771768d25d",
     "url": "/TradeSummaryApp/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/TradeSummaryApp/static/css/2.0624914a.chunk.css"
   },
   {
-    "revision": "c824691ea0fca62ca693",
+    "revision": "17494c4e5cb9af08d2b4",
     "url": "/TradeSummaryApp/static/css/main.ba2ba346.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/TradeSummaryApp/static/js/2.be825ed5.chunk.js"
   },
   {
-    "revision": "c824691ea0fca62ca693",
-    "url": "/TradeSummaryApp/static/js/main.3c6eb11e.chunk.js"
+    "revision": "17494c4e5cb9af08d2b4",
+    "url": "/TradeSummaryApp/static/js/main.809a67b7.chunk.js"
   },
   {
     "revision": "4d674de18e7583bb7d66",
